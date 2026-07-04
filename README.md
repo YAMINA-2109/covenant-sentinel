@@ -4,6 +4,10 @@
 
 > 🏗️ Built from scratch during the **RAISE Summit Hackathon 2026** (July 4–5, Paris) — **Vultr Enterprise Agent track** · Remote · Every commit in this repository was made during the event.
 
+### ▶ [Watch the 1-minute demo](https://www.youtube.com/watch?v=FSCzooRhRhI) · 🌐 [Try it live (deployed on a Vultr VM)](http://95.179.216.167/)
+
+[![CovenantSentinel — 1-minute demo](https://img.youtube.com/vi/FSCzooRhRhI/maxresdefault.jpg)](https://www.youtube.com/watch?v=FSCzooRhRhI)
+
 ![The full audit view — live reasoning trace, verified verdicts, grounded Q&A, and the cited escalation memo, all in one screen](docs/ui-overview.png)
 
 ## The problem
