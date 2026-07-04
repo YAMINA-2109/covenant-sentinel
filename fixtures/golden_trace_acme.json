@@ -1,0 +1,2644 @@
+{
+ "events": [
+  {
+   "run_id": "1dda6829e334",
+   "seq": 0,
+   "ts": 1783185662.7221708,
+   "node": "system",
+   "type": "run_started",
+   "payload": {
+    "documents": [
+     {
+      "filename": "acme_credit_agreement.txt",
+      "kind": "credit_agreement",
+      "sections": 8
+     },
+     {
+      "filename": "acme_q2_2026_financial_report.txt",
+      "kind": "financial_report",
+      "sections": 6
+     },
+     {
+      "filename": "acme_treasury_pack_q2_2026.txt",
+      "kind": "treasury_pack",
+      "sections": 4
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 1,
+   "ts": 1783185662.7221854,
+   "node": "system",
+   "type": "doc_parsed",
+   "payload": {
+    "doc_id": "doc0",
+    "filename": "acme_credit_agreement.txt",
+    "kind": "credit_agreement",
+    "sections": [
+     "CREDIT AGREEMENT",
+     "SECTION 1. DEFINITIONS",
+     "Section 7.1 Financial Covenants. The Borrower shall ensure that:",
+     "Section 7.2 Financial Reporting.",
+     "Section 7.3 Notification of Default.",
+     "Section 9.4 Measurement; Supersession.",
+     "Section 10.1 Financial Covenant Default.",
+     "Section 10.2 Equity Cure."
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 2,
+   "ts": 1783185662.722194,
+   "node": "system",
+   "type": "doc_parsed",
+   "payload": {
+    "doc_id": "doc1",
+    "filename": "acme_q2_2026_financial_report.txt",
+    "kind": "financial_report",
+    "sections": [
+     "QUARTERLY FINANCIAL REPORT \u2014 Q2 2026",
+     "HIGHLIGHTS",
+     "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+     "LIQUIDITY AND CAPITAL RESOURCES",
+     "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+     "NOTE 7 \u2014 SUBSEQUENT EVENTS"
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 3,
+   "ts": 1783185662.7221992,
+   "node": "system",
+   "type": "doc_parsed",
+   "payload": {
+    "doc_id": "doc2",
+    "filename": "acme_treasury_pack_q2_2026.txt",
+    "kind": "treasury_pack",
+    "sections": [
+     "ACME INDUSTRIES S.A.S. \u2014 TREASURY PACK \u2014 Q2 2026",
+     "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+     "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+     "OPERATING PAYMENTS LOG (EXTRACT, INFORMATION ONLY)"
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 4,
+   "ts": 1783185665.6694171,
+   "node": "planner",
+   "type": "node_started",
+   "payload": {
+    "task": "identify covenants to test"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 5,
+   "ts": 1783185665.6694326,
+   "node": "planner",
+   "type": "retrieval_query",
+   "payload": {
+    "query": "financial covenants leverage ratio minimum liquidity interest coverage",
+    "target": "credit_agreement"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 6,
+   "ts": 1783185666.9076333,
+   "node": "planner",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 7.1 Financial Covenants. The Borrower shall ensure that:",
+    "page": null,
+    "score": 8.7731
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 7,
+   "ts": 1783185666.9076543,
+   "node": "planner",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "SECTION 1. DEFINITIONS",
+    "page": null,
+    "score": 7.2633
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 8,
+   "ts": 1783185666.9076593,
+   "node": "planner",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 9.4 Measurement; Supersession.",
+    "page": null,
+    "score": 5.38
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 9,
+   "ts": 1783185666.9076636,
+   "node": "planner",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 10.1 Financial Covenant Default.",
+    "page": null,
+    "score": 5.0789
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 10,
+   "ts": 1783185666.9076886,
+   "node": "planner",
+   "type": "retrieval_query",
+   "payload": {
+    "query": "definitions EBITDA total debt net interest expense liquidity measurement",
+    "target": "credit_agreement"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 11,
+   "ts": 1783185668.212204,
+   "node": "planner",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 10.2 Equity Cure.",
+    "page": null,
+    "score": 4.7691
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 12,
+   "ts": 1783185685.1780887,
+   "node": "planner",
+   "type": "thought",
+   "payload": {
+    "plan": [
+     "Extract final LTM EBITDA, Total Debt, Net Interest Expense, and unrestricted cash figures from the acme_q2_2026_financial_report.txt, ensuring preliminary figures are superseded by final figures per Section 9.4.",
+     "Calculate Leverage Ratio by dividing Total Debt by LTM EBITDA and verify it is less than or equal to 3.5.",
+     "Verify Liquidity (unrestricted cash and cash equivalents) is greater than or equal to 5.0 EUR million.",
+     "Calculate Interest Coverage Ratio by dividing LTM EBITDA by Net Interest Expense and verify it is greater than or equal to 2.0.",
+     "If Leverage Ratio exceeds 3.5, evaluate eligibility for Equity Cure under Section 10.2."
+    ],
+    "covenants": [
+     "Leverage Ratio: <= 3.5",
+     "Minimum Liquidity: >= 5.0 EUR_m",
+     "Interest Coverage: >= 2.0"
+    ],
+    "seeded_queries": [
+     "total debt current and prior quarter values",
+     "ltm ebitda current and prior quarter values",
+     "liquidity current and prior quarter values",
+     "net interest expense current and prior quarter values"
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 13,
+   "ts": 1783185685.1803145,
+   "node": "retriever",
+   "type": "node_started",
+   "payload": {
+    "round": 1,
+    "requests": 4,
+    "engine": "hybrid: bm25 recall -> rerank vultr/VultronRetrieverPrime-Qwen3.5-8B"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 14,
+   "ts": 1783185685.1803334,
+   "node": "retriever",
+   "type": "retrieval_query",
+   "payload": {
+    "query": "total debt current and prior quarter values",
+    "reason": "facts:leverage_ratio_test",
+    "doc_kind": "financial_report + treasury_pack"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 15,
+   "ts": 1783185687.6332061,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "LIQUIDITY AND CAPITAL RESOURCES",
+    "page": null,
+    "score": 3.5965,
+    "preview": "Final unrestricted cash at the quarter end was EUR 5.3 million. This figure supersedes the preliminary treasury flash estimate circulated on 15 June 2026.\nNet I"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 16,
+   "ts": 1783185687.6332228,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+    "page": null,
+    "score": 3.343,
+    "preview": "LTM EBITDA (trailing twelve months):\n- at 31 December 2025: EUR 104.0 million\n- at 31 March 2026: EUR 102.0 million\n- at 30 June 2026: EUR 100.0 million\n\nLTM EB"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 17,
+   "ts": 1783185687.6332278,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+    "page": null,
+    "score": 3.3354,
+    "preview": "Total financial indebtedness at 30 June 2026: EUR 370.0 million (31 March 2026: EUR 325.0 million; 31 December 2025: EUR 318.0 million).\nUnrestricted cash and c"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 18,
+   "ts": 1783185687.6332316,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+    "page": null,
+    "score": 4.0176,
+    "preview": "Opening Total Debt at 31 March 2026: EUR 325.0 million.\n\nNew drawings during the quarter:\n- 12 May 2026 \u2014 EUR 40.0 million \u2014 Term Loan B acquisition draw \u2014 Proj"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 19,
+   "ts": 1783185687.633235,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+    "page": null,
+    "score": 3.1915,
+    "preview": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million.\nStatus: preliminary flash estimate, before quarter-end collections. Subject to supersess"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 20,
+   "ts": 1783185687.6332383,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "OPERATING PAYMENTS LOG (EXTRACT, INFORMATION ONLY)",
+    "page": null,
+    "score": 2.808,
+    "preview": "- 30 April 2026 \u2014 EUR 6.1 million \u2014 payroll run, April.\n- 15 May 2026 \u2014 EUR 3.4 million \u2014 supplier settlement, Rotor Components SpA.\n- 28 June 2026 \u2014 EUR 2.2 mi"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 21,
+   "ts": 1783185687.6332445,
+   "node": "retriever",
+   "type": "retrieval_query",
+   "payload": {
+    "query": "ltm ebitda current and prior quarter values",
+    "reason": "facts:leverage_ratio_test",
+    "doc_kind": "financial_report + treasury_pack"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 22,
+   "ts": 1783185690.222034,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+    "page": null,
+    "score": 5.8146,
+    "preview": "LTM EBITDA (trailing twelve months):\n- at 31 December 2025: EUR 104.0 million\n- at 31 March 2026: EUR 102.0 million\n- at 30 June 2026: EUR 100.0 million\n\nLTM EB"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 23,
+   "ts": 1783185690.2220683,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "HIGHLIGHTS",
+    "page": null,
+    "score": 5.0632,
+    "preview": "Revenue for the quarter was EUR 118.4 million (Q1 2026: EUR 121.9 million).\nEBITDA for the quarter was EUR 25.0 million (Q1 2026: EUR 24.5 million).\nThe Group c"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 24,
+   "ts": 1783185690.222077,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "LIQUIDITY AND CAPITAL RESOURCES",
+    "page": null,
+    "score": 3.6661,
+    "preview": "Final unrestricted cash at the quarter end was EUR 5.3 million. This figure supersedes the preliminary treasury flash estimate circulated on 15 June 2026.\nNet I"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 25,
+   "ts": 1783185690.2220852,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+    "page": null,
+    "score": 3.9123,
+    "preview": "Opening Total Debt at 31 March 2026: EUR 325.0 million.\n\nNew drawings during the quarter:\n- 12 May 2026 \u2014 EUR 40.0 million \u2014 Term Loan B acquisition draw \u2014 Proj"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 26,
+   "ts": 1783185690.2220905,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+    "page": null,
+    "score": 3.5185,
+    "preview": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million.\nStatus: preliminary flash estimate, before quarter-end collections. Subject to supersess"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 27,
+   "ts": 1783185690.222094,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "ACME INDUSTRIES S.A.S. \u2014 TREASURY PACK \u2014 Q2 2026",
+    "page": null,
+    "score": 3.3247,
+    "preview": "Prepared by Group Treasury for the lender relationship file"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 28,
+   "ts": 1783185690.2220998,
+   "node": "retriever",
+   "type": "retrieval_query",
+   "payload": {
+    "query": "liquidity current and prior quarter values",
+    "reason": "facts:minimum_liquidity_test",
+    "doc_kind": "financial_report + treasury_pack"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 29,
+   "ts": 1783185693.0515058,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "LIQUIDITY AND CAPITAL RESOURCES",
+    "page": null,
+    "score": 3.8824,
+    "preview": "Final unrestricted cash at the quarter end was EUR 5.3 million. This figure supersedes the preliminary treasury flash estimate circulated on 15 June 2026.\nNet I"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 30,
+   "ts": 1783185693.051522,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "HIGHLIGHTS",
+    "page": null,
+    "score": 2.8417,
+    "preview": "Revenue for the quarter was EUR 118.4 million (Q1 2026: EUR 121.9 million).\nEBITDA for the quarter was EUR 25.0 million (Q1 2026: EUR 24.5 million).\nThe Group c"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 31,
+   "ts": 1783185693.051527,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+    "page": null,
+    "score": 2.8404,
+    "preview": "LTM EBITDA (trailing twelve months):\n- at 31 December 2025: EUR 104.0 million\n- at 31 March 2026: EUR 102.0 million\n- at 30 June 2026: EUR 100.0 million\n\nLTM EB"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 32,
+   "ts": 1783185693.0515308,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+    "page": null,
+    "score": 3.0376,
+    "preview": "Opening Total Debt at 31 March 2026: EUR 325.0 million.\n\nNew drawings during the quarter:\n- 12 May 2026 \u2014 EUR 40.0 million \u2014 Term Loan B acquisition draw \u2014 Proj"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 33,
+   "ts": 1783185693.0515342,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+    "page": null,
+    "score": 3.034,
+    "preview": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million.\nStatus: preliminary flash estimate, before quarter-end collections. Subject to supersess"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 34,
+   "ts": 1783185693.051537,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "ACME INDUSTRIES S.A.S. \u2014 TREASURY PACK \u2014 Q2 2026",
+    "page": null,
+    "score": 2.6944,
+    "preview": "Prepared by Group Treasury for the lender relationship file"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 35,
+   "ts": 1783185693.0515459,
+   "node": "retriever",
+   "type": "retrieval_query",
+   "payload": {
+    "query": "net interest expense current and prior quarter values",
+    "reason": "facts:interest_coverage_test",
+    "doc_kind": "financial_report + treasury_pack"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 36,
+   "ts": 1783185696.0618944,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "LIQUIDITY AND CAPITAL RESOURCES",
+    "page": null,
+    "score": 4.778,
+    "preview": "Final unrestricted cash at the quarter end was EUR 5.3 million. This figure supersedes the preliminary treasury flash estimate circulated on 15 June 2026.\nNet I"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 37,
+   "ts": 1783185696.0619104,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+    "page": null,
+    "score": 3.609,
+    "preview": "LTM EBITDA (trailing twelve months):\n- at 31 December 2025: EUR 104.0 million\n- at 31 March 2026: EUR 102.0 million\n- at 30 June 2026: EUR 100.0 million\n\nLTM EB"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 38,
+   "ts": 1783185696.0619154,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "HIGHLIGHTS",
+    "page": null,
+    "score": 3.5241,
+    "preview": "Revenue for the quarter was EUR 118.4 million (Q1 2026: EUR 121.9 million).\nEBITDA for the quarter was EUR 25.0 million (Q1 2026: EUR 24.5 million).\nThe Group c"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 39,
+   "ts": 1783185696.061919,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+    "page": null,
+    "score": 3.6919,
+    "preview": "Opening Total Debt at 31 March 2026: EUR 325.0 million.\n\nNew drawings during the quarter:\n- 12 May 2026 \u2014 EUR 40.0 million \u2014 Term Loan B acquisition draw \u2014 Proj"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 40,
+   "ts": 1783185696.0619223,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "OPERATING PAYMENTS LOG (EXTRACT, INFORMATION ONLY)",
+    "page": null,
+    "score": 3.6561,
+    "preview": "- 30 April 2026 \u2014 EUR 6.1 million \u2014 payroll run, April.\n- 15 May 2026 \u2014 EUR 3.4 million \u2014 supplier settlement, Rotor Components SpA.\n- 28 June 2026 \u2014 EUR 2.2 mi"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 41,
+   "ts": 1783185696.061926,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+    "page": null,
+    "score": 3.4289,
+    "preview": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million.\nStatus: preliminary flash estimate, before quarter-end collections. Subject to supersess"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 42,
+   "ts": 1783185706.150838,
+   "node": "retriever",
+   "type": "thought",
+   "payload": {
+    "note": "extracted 2 new fact(s) for 'liquidity current and prior quarter values'"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 43,
+   "ts": 1783185710.1718144,
+   "node": "retriever",
+   "type": "thought",
+   "payload": {
+    "note": "extracted 5 new fact(s) for 'ltm ebitda current and prior quarter values'"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 44,
+   "ts": 1783185713.279016,
+   "node": "retriever",
+   "type": "thought",
+   "payload": {
+    "note": "extracted 2 new fact(s) for 'total debt current and prior quarter values'"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 45,
+   "ts": 1783185721.7155163,
+   "node": "retriever",
+   "type": "thought",
+   "payload": {
+    "note": "extracted 3 new fact(s) for 'net interest expense current and prior quarter values'"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 46,
+   "ts": 1783185721.7167404,
+   "node": "analyzer",
+   "type": "node_started",
+   "payload": {
+    "facts_available": 12,
+    "retrieval_round": 1
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 47,
+   "ts": 1783185743.2520394,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "compute_ratio",
+    "numerator": "total_debt=370.0",
+    "denominator": "ltm_ebitda=100.0"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 48,
+   "ts": 1783185743.2520716,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "compute_ratio",
+    "formula": "total debt 370.0 / ltm ebitda 100.0 = 3.70x"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 49,
+   "ts": 1783185743.2520826,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "check_threshold",
+    "value": 3.7,
+    "operator": "<=",
+    "threshold": 3.5
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 50,
+   "ts": 1783185743.2521098,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "check_threshold",
+    "detail": "value 3.70 <= 3.50 -> FAIL (headroom -0.20)"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 51,
+   "ts": 1783185743.2521393,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "project_linear",
+    "series": [
+     "Q1-2026: 3.19",
+     "Q2-2026: 3.70"
+    ],
+    "threshold": 3.5
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 52,
+   "ts": 1783185743.2521603,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "project_linear",
+    "detail": "threshold already crossed"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 53,
+   "ts": 1783185743.2521915,
+   "node": "analyzer",
+   "type": "need_more_retrieval",
+   "payload": {
+    "covenant": "Leverage Ratio",
+    "why": "breach detected \u2014 retrieving transaction causes and remedy clauses"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 54,
+   "ts": 1783185743.252218,
+   "node": "analyzer",
+   "type": "finding",
+   "payload": {
+    "covenant": "Leverage Ratio",
+    "required": "<= 3.50x",
+    "actual": "3.70x",
+    "status": "breach",
+    "headroom": "-0.20x",
+    "computed_by": "total debt 370.0 / ltm ebitda 100.0 = 3.70x",
+    "projection": "threshold already crossed",
+    "trend": [
+     {
+      "period": "Q1-2026",
+      "value": 3.1863
+     },
+     {
+      "period": "Q2-2026",
+      "value": 3.7
+     }
+    ],
+    "threshold": 3.5,
+    "operator": "<=",
+    "unit": "x",
+    "citations": [
+     {
+      "doc_id": "doc1",
+      "section": "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+      "page": null,
+      "quote": "Total financial indebtedness at 30 June 2026: EUR 370.0 million (31 March 2026: EUR 325.0 million; 31 December 2025: EUR 318.0 million)."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 55,
+   "ts": 1783185743.252228,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "check_threshold",
+    "value": 5.3,
+    "operator": ">=",
+    "threshold": 5.0
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 56,
+   "ts": 1783185743.2522404,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "check_threshold",
+    "detail": "value 5.30 >= 5.00 -> PASS (headroom +0.30)"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 57,
+   "ts": 1783185743.2522612,
+   "node": "analyzer",
+   "type": "need_more_retrieval",
+   "payload": {
+    "covenant": "Minimum Liquidity",
+    "why": "conflicting preliminary vs final figures \u2014 need the governing clause"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 58,
+   "ts": 1783185743.2522776,
+   "node": "analyzer",
+   "type": "finding",
+   "payload": {
+    "covenant": "Minimum Liquidity",
+    "required": ">= EUR 5.0m",
+    "actual": "EUR 5.3m",
+    "status": "conflict",
+    "headroom": "+0.30m",
+    "computed_by": "direct: unrestricted_cash=5.3",
+    "projection": "",
+    "trend": [],
+    "threshold": 5.0,
+    "operator": ">=",
+    "unit": "EUR_m",
+    "citations": [
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc2",
+      "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+      "page": null,
+      "quote": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million."
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 59,
+   "ts": 1783185743.2522857,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "compute_ratio",
+    "numerator": "ltm_ebitda=100.0",
+    "denominator": "net_interest_expense=40.0"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 60,
+   "ts": 1783185743.2522953,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "compute_ratio",
+    "formula": "ltm ebitda 100.0 / net interest expense 40.0 = 2.50x"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 61,
+   "ts": 1783185743.2522995,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "check_threshold",
+    "value": 2.5,
+    "operator": ">=",
+    "threshold": 2.0
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 62,
+   "ts": 1783185743.252311,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "check_threshold",
+    "detail": "value 2.50 >= 2.00 -> PASS (headroom +0.50)"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 63,
+   "ts": 1783185743.2523358,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "project_linear",
+    "series": [
+     "Q4-2025: 3.10",
+     "Q1-2026: 2.80",
+     "Q2-2026: 2.50"
+    ],
+    "threshold": 2.0
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 64,
+   "ts": 1783185743.2528052,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "project_linear",
+    "detail": "trend -0.30/period; at this pace the >= 2.0 limit is crossed in ~1.7 periods (\u2248 Q4-2026)"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 65,
+   "ts": 1783185743.252836,
+   "node": "analyzer",
+   "type": "finding",
+   "payload": {
+    "covenant": "Interest Coverage",
+    "required": ">= 2.00x",
+    "actual": "2.50x",
+    "status": "at_risk",
+    "headroom": "+0.50x",
+    "computed_by": "ltm ebitda 100.0 / net interest expense 40.0 = 2.50x",
+    "projection": "trend -0.30/period; at this pace the >= 2.0 limit is crossed in ~1.7 periods (\u2248 Q4-2026)",
+    "trend": [
+     {
+      "period": "Q4-2025",
+      "value": 3.1045
+     },
+     {
+      "period": "Q1-2026",
+      "value": 2.8022
+     },
+     {
+      "period": "Q2-2026",
+      "value": 2.5
+     }
+    ],
+    "threshold": 2.0,
+    "operator": ">=",
+    "unit": "x",
+    "citations": [
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Net Interest Expense (trailing twelve months) at 30 June 2026: EUR 40.0 million"
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 66,
+   "ts": 1783185743.255521,
+   "node": "retriever",
+   "type": "node_started",
+   "payload": {
+    "round": 2,
+    "requests": 3,
+    "engine": "hybrid: bm25 recall -> rerank vultr/VultronRetrieverPrime-Qwen3.5-8B"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 67,
+   "ts": 1783185743.2555516,
+   "node": "retriever",
+   "type": "retrieval_query",
+   "payload": {
+    "query": "total debt ltm ebitda increase movement schedule drawdown transactions during the quarter",
+    "reason": "cause:leverage_ratio_test",
+    "doc_kind": null
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 68,
+   "ts": 1783185744.6333823,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_treasury_pack_q2_2026.txt",
+    "section": "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+    "page": null,
+    "score": 9.6814,
+    "preview": "Opening Total Debt at 31 March 2026: EUR 325.0 million.\n\nNew drawings during the quarter:\n- 12 May 2026 \u2014 EUR 40.0 million \u2014 Term Loan B acquisition draw \u2014 Proj"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 69,
+   "ts": 1783185744.6334112,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "SECTION 1. DEFINITIONS",
+    "page": null,
+    "score": 9.5158,
+    "preview": "\"EBITDA\" means consolidated earnings before interest, tax, depreciation and amortisation of the Group, calculated in accordance with the Accounting Principles.\n"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 70,
+   "ts": 1783185744.6334205,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "LIQUIDITY AND CAPITAL RESOURCES",
+    "page": null,
+    "score": 8.3507,
+    "preview": "Final unrestricted cash at the quarter end was EUR 5.3 million. This figure supersedes the preliminary treasury flash estimate circulated on 15 June 2026.\nNet I"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 71,
+   "ts": 1783185744.6334267,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_q2_2026_financial_report.txt",
+    "section": "HIGHLIGHTS",
+    "page": null,
+    "score": 8.1098,
+    "preview": "Revenue for the quarter was EUR 118.4 million (Q1 2026: EUR 121.9 million).\nEBITDA for the quarter was EUR 25.0 million (Q1 2026: EUR 24.5 million).\nThe Group c"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 72,
+   "ts": 1783185744.6334782,
+   "node": "retriever",
+   "type": "thought",
+   "payload": {
+    "note": "stored 4 evidence snippet(s) [cause:leverage_ratio_test]"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 73,
+   "ts": 1783185744.6334841,
+   "node": "retriever",
+   "type": "retrieval_query",
+   "payload": {
+    "query": "equity cure remedy covenant breach waiver",
+    "reason": "clause:leverage_ratio_test",
+    "doc_kind": "credit_agreement"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 74,
+   "ts": 1783185745.8955271,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 10.2 Equity Cure.",
+    "page": null,
+    "score": 4.8809,
+    "preview": "The Borrower may cure a breach of Section 7.1(a) no more than twice over the life of the Facility by way of a qualifying equity contribution applied to the redu"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 75,
+   "ts": 1783185745.8955677,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 10.1 Financial Covenant Default.",
+    "page": null,
+    "score": 3.2837,
+    "preview": "Failure to comply with any covenant in Section 7.1 constitutes an Event of Default, subject to Section 10.2."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 76,
+   "ts": 1783185745.8955967,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 7.3 Notification of Default.",
+    "page": null,
+    "score": 3.0773,
+    "preview": "The Borrower shall notify the Lender of any Default, and the steps being taken to remedy it, promptly upon becoming aware of it."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 77,
+   "ts": 1783185745.8956096,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "SECTION 1. DEFINITIONS",
+    "page": null,
+    "score": 3.0315,
+    "preview": "\"EBITDA\" means consolidated earnings before interest, tax, depreciation and amortisation of the Group, calculated in accordance with the Accounting Principles.\n"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 78,
+   "ts": 1783185745.8956234,
+   "node": "retriever",
+   "type": "thought",
+   "payload": {
+    "note": "stored 4 evidence snippet(s) [clause:leverage_ratio_test]"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 79,
+   "ts": 1783185745.89563,
+   "node": "retriever",
+   "type": "retrieval_query",
+   "payload": {
+    "query": "measurement supersession preliminary flash estimates final quarter-end figures govern",
+    "reason": "clause:minimum_liquidity_test",
+    "doc_kind": "credit_agreement"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 80,
+   "ts": 1783185747.1342185,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 9.4 Measurement; Supersession.",
+    "page": null,
+    "score": 8.1253,
+    "preview": "Financial covenants are tested by reference to the final figures reported as at the relevant Quarter Date. Preliminary, flash or interim estimates circulated be"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 81,
+   "ts": 1783185747.1342378,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "SECTION 1. DEFINITIONS",
+    "page": null,
+    "score": 4.0991,
+    "preview": "\"EBITDA\" means consolidated earnings before interest, tax, depreciation and amortisation of the Group, calculated in accordance with the Accounting Principles.\n"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 82,
+   "ts": 1783185747.1342435,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 7.2 Financial Reporting.",
+    "page": null,
+    "score": 3.6262,
+    "preview": "The Borrower shall deliver to the Lender, within 45 days after each Quarter Date, a compliance certificate setting out computations of the financial covenants i"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 83,
+   "ts": 1783185747.1342487,
+   "node": "retriever",
+   "type": "retrieval_hit",
+   "payload": {
+    "doc": "acme_credit_agreement.txt",
+    "section": "Section 7.1 Financial Covenants. The Borrower shall ensure that:",
+    "page": null,
+    "score": 3.5511,
+    "preview": "(a) Leverage Ratio. The Leverage Ratio on each Quarter Date shall not exceed 3.50:1.00.\n\n(b) Minimum Liquidity. Liquidity on each Quarter Date shall not be less"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 84,
+   "ts": 1783185747.1342547,
+   "node": "retriever",
+   "type": "thought",
+   "payload": {
+    "note": "stored 4 evidence snippet(s) [clause:minimum_liquidity_test]"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 85,
+   "ts": 1783185747.1355946,
+   "node": "analyzer",
+   "type": "node_started",
+   "payload": {
+    "facts_available": 12,
+    "retrieval_round": 2
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 86,
+   "ts": 1783185768.784009,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "compute_ratio",
+    "numerator": "total_debt=370.0",
+    "denominator": "ltm_ebitda=100.0"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 87,
+   "ts": 1783185768.78405,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "compute_ratio",
+    "formula": "total debt 370.0 / ltm ebitda 100.0 = 3.70x"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 88,
+   "ts": 1783185768.784057,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "check_threshold",
+    "value": 3.7,
+    "operator": "<=",
+    "threshold": 3.5
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 89,
+   "ts": 1783185768.784074,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "check_threshold",
+    "detail": "value 3.70 <= 3.50 -> FAIL (headroom -0.20)"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 90,
+   "ts": 1783185768.7841036,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "project_linear",
+    "series": [
+     "Q1-2026: 3.19",
+     "Q2-2026: 3.70"
+    ],
+    "threshold": 3.5
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 91,
+   "ts": 1783185768.78412,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "project_linear",
+    "detail": "threshold already crossed"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 92,
+   "ts": 1783185768.7841587,
+   "node": "analyzer",
+   "type": "finding",
+   "payload": {
+    "covenant": "Leverage Ratio",
+    "required": "<= 3.50x",
+    "actual": "3.70x",
+    "status": "breach",
+    "headroom": "-0.20x",
+    "computed_by": "total debt 370.0 / ltm ebitda 100.0 = 3.70x",
+    "projection": "threshold already crossed",
+    "trend": [
+     {
+      "period": "Q1-2026",
+      "value": 3.1863
+     },
+     {
+      "period": "Q2-2026",
+      "value": 3.7
+     }
+    ],
+    "threshold": 3.5,
+    "operator": "<=",
+    "unit": "x",
+    "citations": [
+     {
+      "doc_id": "doc1",
+      "section": "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+      "page": null,
+      "quote": "Total financial indebtedness at 30 June 2026: EUR 370.0 million (31 March 2026: EUR 325.0 million; 31 December 2025: EUR 318.0 million)."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 93,
+   "ts": 1783185768.7841687,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "check_threshold",
+    "value": 5.3,
+    "operator": ">=",
+    "threshold": 5.0
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 94,
+   "ts": 1783185768.7841797,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "check_threshold",
+    "detail": "value 5.30 >= 5.00 -> PASS (headroom +0.30)"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 95,
+   "ts": 1783185768.784207,
+   "node": "analyzer",
+   "type": "finding",
+   "payload": {
+    "covenant": "Minimum Liquidity",
+    "required": ">= EUR 5.0m",
+    "actual": "EUR 5.3m",
+    "status": "conflict",
+    "headroom": "+0.30m",
+    "computed_by": "direct: unrestricted_cash=5.3",
+    "projection": "",
+    "trend": [],
+    "threshold": 5.0,
+    "operator": ">=",
+    "unit": "EUR_m",
+    "citations": [
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc2",
+      "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+      "page": null,
+      "quote": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million."
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 96,
+   "ts": 1783185768.7842145,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "compute_ratio",
+    "numerator": "ltm_ebitda=100.0",
+    "denominator": "net_interest_expense=40.0"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 97,
+   "ts": 1783185768.784223,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "compute_ratio",
+    "formula": "ltm ebitda 100.0 / net interest expense 40.0 = 2.50x"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 98,
+   "ts": 1783185768.7842264,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "check_threshold",
+    "value": 2.5,
+    "operator": ">=",
+    "threshold": 2.0
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 99,
+   "ts": 1783185768.784235,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "check_threshold",
+    "detail": "value 2.50 >= 2.00 -> PASS (headroom +0.50)"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 100,
+   "ts": 1783185768.7842565,
+   "node": "analyzer",
+   "type": "tool_call",
+   "payload": {
+    "tool": "project_linear",
+    "series": [
+     "Q4-2025: 3.10",
+     "Q1-2026: 2.80",
+     "Q2-2026: 2.50"
+    ],
+    "threshold": 2.0
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 101,
+   "ts": 1783185768.784284,
+   "node": "analyzer",
+   "type": "tool_result",
+   "payload": {
+    "tool": "project_linear",
+    "detail": "trend -0.30/period; at this pace the >= 2.0 limit is crossed in ~1.7 periods (\u2248 Q4-2026)"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 102,
+   "ts": 1783185768.7842977,
+   "node": "analyzer",
+   "type": "finding",
+   "payload": {
+    "covenant": "Interest Coverage",
+    "required": ">= 2.00x",
+    "actual": "2.50x",
+    "status": "at_risk",
+    "headroom": "+0.50x",
+    "computed_by": "ltm ebitda 100.0 / net interest expense 40.0 = 2.50x",
+    "projection": "trend -0.30/period; at this pace the >= 2.0 limit is crossed in ~1.7 periods (\u2248 Q4-2026)",
+    "trend": [
+     {
+      "period": "Q4-2025",
+      "value": 3.1045
+     },
+     {
+      "period": "Q1-2026",
+      "value": 2.8022
+     },
+     {
+      "period": "Q2-2026",
+      "value": 2.5
+     }
+    ],
+    "threshold": 2.0,
+    "operator": ">=",
+    "unit": "x",
+    "citations": [
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Net Interest Expense (trailing twelve months) at 30 June 2026: EUR 40.0 million"
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 103,
+   "ts": 1783185776.4798183,
+   "node": "analyzer",
+   "type": "thought",
+   "payload": {
+    "covenant": "Leverage Ratio",
+    "cause_coverage": 0.8889,
+    "explained_eur_m": 40.0,
+    "unexplained_eur_m": 5.0,
+    "note": ""
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 104,
+   "ts": 1783185776.4821033,
+   "node": "critic",
+   "type": "node_started",
+   "payload": {
+    "findings_to_challenge": 3
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 105,
+   "ts": 1783185788.6965272,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Minimum Liquidity",
+    "check": "citation_valid",
+    "passed": true,
+    "note": "3/3 quotes located verbatim in source documents"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 106,
+   "ts": 1783185788.6965387,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Minimum Liquidity",
+    "check": "data_freshness",
+    "passed": true,
+    "note": "The Analyzer's draft incorrectly selected the preliminary figure (4.2m) as the 'worse' value for a provisional test. Per the governing clause, preliminary figures are superseded by final figures. The final figure is 5.3m, which must be used. The draft's logic of picking the lower number was flawed because the lower number was invalid/superseded."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 107,
+   "ts": 1783185788.6965425,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Minimum Liquidity",
+    "check": "definition_basis",
+    "passed": true,
+    "note": "The covenant requires testing on 'final figures'. The corrected finding uses the final figure of 5.3m, satisfying the basis requirement."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 108,
+   "ts": 1783185788.6965454,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Minimum Liquidity",
+    "check": "internal_consistency",
+    "passed": true,
+    "note": "The corrected calculation (5.3m >= 5.0m) yields a pass ('ok'). The draft's conclusion of 'conflict' was based on an erroneous application of the supersession clause, creating a false conflict between a valid final number and an invalid preliminary number."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 109,
+   "ts": 1783185788.696585,
+   "node": "critic",
+   "type": "verdict",
+   "payload": {
+    "covenant": "Minimum Liquidity",
+    "original_status": "conflict",
+    "final_status": "ok",
+    "overturned": true,
+    "confidence": 1.0,
+    "rationale": "The Analyzer erroneously applied a 'prudent provisional' logic to select the lower preliminary figure (4.2m) over the higher final figure (5.3m). Section 9.4 explicitly states that preliminary estimates are 'superseded by the final figures for all covenant purposes.' Therefore, the only valid data point is the final figure of 5.3m. Since 5.3m >= 5.0m, the covenant is met, and the status is 'ok', n",
+    "citations": [
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc2",
+      "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+      "page": null,
+      "quote": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million."
+     },
+     {
+      "doc_id": "doc0",
+      "section": "Section 9.4 Measurement; Supersession.",
+      "page": null,
+      "quote": "Preliminary, flash or interim estimates circulated before publication of the final quarter-end figures are superseded by the final figures for all covenant purposes."
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 110,
+   "ts": 1783185793.5911844,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Interest Coverage",
+    "check": "citation_valid",
+    "passed": true,
+    "note": "2/2 quotes located verbatim in source documents"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 111,
+   "ts": 1783185793.5912082,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Interest Coverage",
+    "check": "data_freshness",
+    "passed": true,
+    "note": "The Analyzer used Q2-2026 figures (LTM EBITDA 100.0, Net Interest 40.0), which are the most recent final figures available in the provided fact set. No superseding data exists."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 112,
+   "ts": 1783185793.5912118,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Interest Coverage",
+    "check": "definition_basis",
+    "passed": true,
+    "note": "The covenant requires LTM basis for both EBITDA and Net Interest Expense. The Analyzer correctly selected facts with basis='ltm' for Q2-2026."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 113,
+   "ts": 1783185793.591215,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Interest Coverage",
+    "check": "internal_consistency",
+    "passed": true,
+    "note": "Calculation 100.0 / 40.0 = 2.50x is correct. The trend analysis (-0.30/period) is consistent with the historical sequence: Q4-25 (104.0/33.5=3.10x), Q1-26 (102.0/36.4=2.80x), Q2-26 (100.0/40.0=2.50x). The projection that the 2.00x threshold is crossed in ~1.7 periods is mathematically sound based on this linear trend."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 114,
+   "ts": 1783185793.5912404,
+   "node": "critic",
+   "type": "verdict",
+   "payload": {
+    "covenant": "Interest Coverage",
+    "original_status": "at_risk",
+    "final_status": "at_risk",
+    "overturned": false,
+    "confidence": 0.9,
+    "rationale": "The Analyzer's finding is robust. The data used is the freshest available, the basis matches the covenant requirements, and the math/trend projection holds up to scrutiny. The 'at_risk' status is appropriate given the clear downward trajectory crossing the threshold within the defined horizon.",
+    "citations": [
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Net Interest Expense (trailing twelve months) at 30 June 2026: EUR 40.0 million"
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 115,
+   "ts": 1783185795.1003048,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Leverage Ratio",
+    "check": "citation_valid",
+    "passed": true,
+    "note": "2/2 quotes located verbatim in source documents"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 116,
+   "ts": 1783185795.1003153,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Leverage Ratio",
+    "check": "data_freshness",
+    "passed": true,
+    "note": "The Analyzer correctly selected the Q2-2026 final Total Debt (370.0) and LTM EBITDA (100.0). No fresher or superseding figures are available in the provided facts for the Q2-2026 test date."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 117,
+   "ts": 1783185795.100319,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Leverage Ratio",
+    "check": "definition_basis",
+    "passed": true,
+    "note": "The covenant requires 'LTM EBITDA' and 'final figures'. The Analyzer used the fact labeled 'basis=ltm' for EBITDA and 'basis=final' for Debt, strictly adhering to the definition: 'LTM EBITDA means EBITDA for the trailing twelve-month period... Quarterly (three-month) EBITDA figures shall not be used.'"
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 118,
+   "ts": 1783185795.1003222,
+   "node": "critic",
+   "type": "critic_check",
+   "payload": {
+    "covenant": "Leverage Ratio",
+    "check": "internal_consistency",
+    "passed": true,
+    "note": "The calculation 370.0 / 100.0 = 3.70x is mathematically correct. The conclusion that 3.70x > 3.50x constitutes a breach is logically sound based on the provided inputs."
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 119,
+   "ts": 1783185795.1003804,
+   "node": "critic",
+   "type": "verdict",
+   "payload": {
+    "covenant": "Leverage Ratio",
+    "original_status": "breach",
+    "final_status": "breach",
+    "overturned": false,
+    "confidence": 0.9778,
+    "rationale": "The Analyzer's finding is robust. The inputs match the governing definitions for basis (LTM vs Quarterly) and status (Final). The arithmetic is correct, and the resulting ratio of 3.70x clearly exceeds the 3.50x threshold. While Section 10.2 mentions an equity cure, the existence of a cure mechanism does not negate the initial breach status at the time of testing; it merely provides a remedy. Ther",
+    "citations": [
+     {
+      "doc_id": "doc1",
+      "section": "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+      "page": null,
+      "quote": "Total financial indebtedness at 30 June 2026: EUR 370.0 million (31 March 2026: EUR 325.0 million; 31 December 2025: EUR 318.0 million)."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     },
+     {
+      "doc_id": "doc0",
+      "section": "SECTION 1. DEFINITIONS",
+      "page": null,
+      "quote": "\"LTM EBITDA\" means EBITDA for the trailing twelve-month period ending on the relevant Quarter Date, as reconciled in the Borrower's quarterly reporting (alternative performance measures note). Quarterly (three-month) EBITDA figures shall not be used for covenant testing."
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 120,
+   "ts": 1783185795.1021085,
+   "node": "synthesizer",
+   "type": "node_started",
+   "payload": {}
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 121,
+   "ts": 1783185815.710591,
+   "node": "synthesizer",
+   "type": "memo",
+   "payload": {
+    "markdown": "# Covenant Compliance Memo \u2014 ACME INDUSTRIES S.A.S.\n\n## Executive summary\nACME INDUSTRIES S.A.S. is in confirmed breach of the Leverage Ratio covenant as of Q2 2026, reporting 3.70x against a maximum threshold of 3.50x [Credit Agreement, Section 7.1(a)]. While Minimum Liquidity remains compliant at EUR 5.3m following the supersession of preliminary data, the Interest Coverage Ratio is trending downward and projected to breach by Q4 2026.\n\n## Findings\n\n| Covenant | Required | Actual | Verdict | Confidence |\n| :--- | :--- | :--- | :--- | :--- |\n| Leverage Ratio | <= 3.50x | 3.70x | **Breach** | 98% |\n| Minimum Liquidity | >= EUR 5.0m | EUR 5.3m | OK | 100% |\n| Interest Coverage | >= 2.00x | 2.50x | At Risk | 90% |\n\n## Root cause\nThe Leverage Ratio breach is primarily driven by a EUR 40.0m draw on Facility B to fund the Project Falcon acquisition of TargetCo GmbH [Debt Movement Schedule \u2014 Quarter Ended 30 June 2026]. Additionally, an undocumented EUR 5.0m draw from a short-term bilateral facility with Banque du Nord contributed to the debt increase, accounting for the unexplained portion of the leverage spike [Debt Movement Schedule \u2014 Quarter Ended 30 June 2026]. These debt increases were not offset by proportional growth in LTM EBITDA, which remains at EUR 100.0m [Note 4 \u2014 Alternative Performance Measures (LTM Reconciliation)].\n\n## Eliminated false positives\nThe initial flagging of a Minimum Liquidity breach was overturned. The analyzer incorrectly utilized a preliminary flash figure of EUR 4.2m; however, per Section 9.4, preliminary estimates are superseded by final figures for covenant purposes [Credit Agreement, Section 9.4 Measurement; Supersession]. The final reported unrestricted cash of EUR 5.3m confirms compliance with the >= EUR 5.0m requirement [Liquidity and Capital Resources].\n\n## Early warnings\nThe Interest Coverage Ratio has deteriorated consecutively from 3.10x (Q4 2025) to 2.50x (Q2 2026) [Note 4 \u2014 Alternative Performance Measures (LTM Reconciliation)]. At the current trajectory of -0.30x per period, the ratio is projected to fall below the 2.00x covenant floor within approximately 1.7 periods, targeting a breach in Q4 2026.\n\n## Recommended actions\n1.  **Invoke Equity Cure:** Immediately notify the Lender of the intent to cure the Leverage Ratio breach under Section 10.2 by injecting qualifying equity to reduce Total Debt within 20 Business Days of the compliance certificate delivery [Credit Agreement, Section 10.2 Equity Cure].\n2.  **Formal Notification:** Issue a formal notice of Default pursuant to Section 7.3, detailing the breach and the specific remedial steps (equity injection) being undertaken [Credit Agreement, Section 7.3 Notification of Default].\n3.  **Address Undocumented Debt:** Provide immediate documentation or repayment plans for the EUR 5.0m Banque du Nord facility to ensure Total Debt calculations align with defined Financial Indebtedness [Credit Agreement, Section 1. Definitions].\n4.  **Mitigation Planning:** Develop a liquidity preservation plan to arrest the decline in Interest Coverage, as a second covenant breach would constitute an Event of Default under Section 10.1 [Credit Agreement, Section 10.1 Financial Covenant Default].\n\n---\n*Methodology: every figure was computed by deterministic tools, never by the language model. Confidence per finding = 80% weighted Critic checks (citation validity 30%, data freshness 25%, definition basis 25%, internal consistency 20%) + 20% cause coverage \u2014 the share of the flagged movement matched to clearly documented causes. At-risk verdicts based on a trend projection carry an additional 0.9 projection factor. Overall confidence is the weakest actionable finding.*",
+    "overall_confidence": 0.9,
+    "verdicts": [
+     {
+      "covenant": "Leverage Ratio",
+      "final_status": "breach",
+      "overturned": false,
+      "confidence_pct": 98
+     },
+     {
+      "covenant": "Minimum Liquidity",
+      "final_status": "ok",
+      "overturned": true,
+      "confidence_pct": 100
+     },
+     {
+      "covenant": "Interest Coverage",
+      "final_status": "at_risk",
+      "overturned": false,
+      "confidence_pct": 90
+     }
+    ]
+   }
+  },
+  {
+   "run_id": "1dda6829e334",
+   "seq": 122,
+   "ts": 1783185815.7122886,
+   "node": "system",
+   "type": "run_completed",
+   "payload": {
+    "verdicts": 3,
+    "overall_confidence": 0.9,
+    "retrieval_rounds": 2
+   }
+  }
+ ],
+ "state": {
+  "run_id": "1dda6829e334",
+  "documents": [
+   {
+    "doc_id": "doc0",
+    "filename": "acme_credit_agreement.txt",
+    "kind": "credit_agreement",
+    "sections": [
+     {
+      "section_id": "doc0#0",
+      "title": "CREDIT AGREEMENT",
+      "page": null,
+      "text": "Dated as of 12 March 2024\n\nBETWEEN:\nACME INDUSTRIES S.A.S., a societe par actions simplifiee incorporated in France (the \"Borrower\")\nAND\nBANQUE LUTECE S.A. (the \"Lender\")\n\nFACILITY: EUR 50,000,000 SENIOR TERM LOAN FACILITY (\"Facility B\")"
+     },
+     {
+      "section_id": "doc0#1",
+      "title": "SECTION 1. DEFINITIONS",
+      "page": null,
+      "text": "\"EBITDA\" means consolidated earnings before interest, tax, depreciation and amortisation of the Group, calculated in accordance with the Accounting Principles.\n\n\"LTM EBITDA\" means EBITDA for the trailing twelve-month period ending on the relevant Quarter Date, as reconciled in the Borrower's quarterly reporting (alternative performance measures note). Quarterly (three-month) EBITDA figures shall not be used for covenant testing.\n\n\"Total Debt\" means the aggregate outstanding principal amount of all financial indebtedness of the Group, including bank facilities, notes, bilateral loans and finance leases.\n\n\"Net Interest Expense\" means interest payable on Total Debt less interest income, measured on a trailing twelve-month basis.\n\n\"Leverage Ratio\" means, on any Quarter Date, the ratio of Total Debt to LTM EBITDA.\n\n\"Interest Coverage Ratio\" means, on any Quarter Date, the ratio of LTM EBITDA to Net Interest Expense.\n\n\"Liquidity\" means unrestricted cash and cash equivalents of the Group.\n\n\"Quarter Date\" means 31 March, 30 June, 30 September and 31 December in each year."
+     },
+     {
+      "section_id": "doc0#2",
+      "title": "Section 7.1 Financial Covenants. The Borrower shall ensure that:",
+      "page": null,
+      "text": "(a) Leverage Ratio. The Leverage Ratio on each Quarter Date shall not exceed 3.50:1.00.\n\n(b) Minimum Liquidity. Liquidity on each Quarter Date shall not be less than EUR 5,000,000.\n\n(c) Interest Coverage. The Interest Coverage Ratio on each Quarter Date shall not be less than 2.00:1.00."
+     },
+     {
+      "section_id": "doc0#3",
+      "title": "Section 7.2 Financial Reporting.",
+      "page": null,
+      "text": "The Borrower shall deliver to the Lender, within 45 days after each Quarter Date, a compliance certificate setting out computations of the financial covenants in reasonable detail."
+     },
+     {
+      "section_id": "doc0#4",
+      "title": "Section 7.3 Notification of Default.",
+      "page": null,
+      "text": "The Borrower shall notify the Lender of any Default, and the steps being taken to remedy it, promptly upon becoming aware of it."
+     },
+     {
+      "section_id": "doc0#5",
+      "title": "Section 9.4 Measurement; Supersession.",
+      "page": null,
+      "text": "Financial covenants are tested by reference to the final figures reported as at the relevant Quarter Date. Preliminary, flash or interim estimates circulated before publication of the final quarter-end figures are superseded by the final figures for all covenant purposes."
+     },
+     {
+      "section_id": "doc0#6",
+      "title": "Section 10.1 Financial Covenant Default.",
+      "page": null,
+      "text": "Failure to comply with any covenant in Section 7.1 constitutes an Event of Default, subject to Section 10.2."
+     },
+     {
+      "section_id": "doc0#7",
+      "title": "Section 10.2 Equity Cure.",
+      "page": null,
+      "text": "The Borrower may cure a breach of Section 7.1(a) no more than twice over the life of the Facility by way of a qualifying equity contribution applied to the reduction of Total Debt within 20 Business Days of delivery of the relevant compliance certificate."
+     }
+    ]
+   },
+   {
+    "doc_id": "doc1",
+    "filename": "acme_q2_2026_financial_report.txt",
+    "kind": "financial_report",
+    "sections": [
+     {
+      "section_id": "doc1#0",
+      "title": "QUARTERLY FINANCIAL REPORT \u2014 Q2 2026",
+      "page": null,
+      "text": "Quarter ended 30 June 2026 \u2014 Published 3 July 2026 (final)"
+     },
+     {
+      "section_id": "doc1#1",
+      "title": "HIGHLIGHTS",
+      "page": null,
+      "text": "Revenue for the quarter was EUR 118.4 million (Q1 2026: EUR 121.9 million).\nEBITDA for the quarter was EUR 25.0 million (Q1 2026: EUR 24.5 million).\nThe Group completed the acquisition of TargetCo GmbH (\"Project Falcon\") in May 2026, financed primarily through an acquisition draw under Term Loan B."
+     },
+     {
+      "section_id": "doc1#2",
+      "title": "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+      "page": null,
+      "text": "Total financial indebtedness at 30 June 2026: EUR 370.0 million (31 March 2026: EUR 325.0 million; 31 December 2025: EUR 318.0 million).\nUnrestricted cash and cash equivalents at 30 June 2026 (final): EUR 5.3 million."
+     },
+     {
+      "section_id": "doc1#3",
+      "title": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "text": "Final unrestricted cash at the quarter end was EUR 5.3 million. This figure supersedes the preliminary treasury flash estimate circulated on 15 June 2026.\nNet Interest Expense (trailing twelve months) at 30 June 2026: EUR 40.0 million (31 March 2026: EUR 36.4 million; 31 December 2025: EUR 33.5 million). The increase reflects the additional debt drawn for Project Falcon."
+     },
+     {
+      "section_id": "doc1#4",
+      "title": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "text": "LTM EBITDA (trailing twelve months):\n- at 31 December 2025: EUR 104.0 million\n- at 31 March 2026: EUR 102.0 million\n- at 30 June 2026: EUR 100.0 million\n\nLTM EBITDA is the covenant-relevant measure under the Group's credit documentation; quarterly EBITDA is disclosed for information only."
+     },
+     {
+      "section_id": "doc1#5",
+      "title": "NOTE 7 \u2014 SUBSEQUENT EVENTS",
+      "page": null,
+      "text": "No material subsequent events between 30 June 2026 and the date of this report."
+     }
+    ]
+   },
+   {
+    "doc_id": "doc2",
+    "filename": "acme_treasury_pack_q2_2026.txt",
+    "kind": "treasury_pack",
+    "sections": [
+     {
+      "section_id": "doc2#0",
+      "title": "ACME INDUSTRIES S.A.S. \u2014 TREASURY PACK \u2014 Q2 2026",
+      "page": null,
+      "text": "Prepared by Group Treasury for the lender relationship file"
+     },
+     {
+      "section_id": "doc2#1",
+      "title": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+      "page": null,
+      "text": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million.\nStatus: preliminary flash estimate, before quarter-end collections. Subject to supersession by final quarter-end figures."
+     },
+     {
+      "section_id": "doc2#2",
+      "title": "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+      "page": null,
+      "text": "Opening Total Debt at 31 March 2026: EUR 325.0 million.\n\nNew drawings during the quarter:\n- 12 May 2026 \u2014 EUR 40.0 million \u2014 Term Loan B acquisition draw \u2014 Project Falcon (acquisition of TargetCo GmbH) \u2014 Board approval BM-2026-04 \u2014 fully documented.\n- 03 June 2026 \u2014 EUR 5.0 million \u2014 Short-term bilateral facility, Banque du Nord \u2014 stated purpose: general corporate purposes \u2014 no board memo reference on file.\n\nRepayments during the quarter: none.\n\nClosing Total Debt at 30 June 2026: EUR 370.0 million."
+     },
+     {
+      "section_id": "doc2#3",
+      "title": "OPERATING PAYMENTS LOG (EXTRACT, INFORMATION ONLY)",
+      "page": null,
+      "text": "- 30 April 2026 \u2014 EUR 6.1 million \u2014 payroll run, April.\n- 15 May 2026 \u2014 EUR 3.4 million \u2014 supplier settlement, Rotor Components SpA.\n- 28 June 2026 \u2014 EUR 2.2 million \u2014 quarterly interest payment, Facility B."
+     }
+    ]
+   }
+  ],
+  "plan": [
+   "Extract final LTM EBITDA, Total Debt, Net Interest Expense, and unrestricted cash figures from the acme_q2_2026_financial_report.txt, ensuring preliminary figures are superseded by final figures per Section 9.4.",
+   "Calculate Leverage Ratio by dividing Total Debt by LTM EBITDA and verify it is less than or equal to 3.5.",
+   "Verify Liquidity (unrestricted cash and cash equivalents) is greater than or equal to 5.0 EUR million.",
+   "Calculate Interest Coverage Ratio by dividing LTM EBITDA by Net Interest Expense and verify it is greater than or equal to 2.0.",
+   "If Leverage Ratio exceeds 3.5, evaluate eligibility for Equity Cure under Section 10.2."
+  ],
+  "rules": [
+   {
+    "rule_id": "leverage_ratio_test",
+    "name": "Leverage Ratio",
+    "metric": "total_debt/ltm_ebitda",
+    "operator": "<=",
+    "threshold": 3.5,
+    "unit": "x",
+    "frequency": "quarterly",
+    "definition_notes": "LTM EBITDA means EBITDA for the trailing twelve-month period ending on the relevant Quarter Date. Quarterly figures shall not be used. Tested on final figures.",
+    "sources": [
+     {
+      "doc_id": "doc0",
+      "section": "Section 7.1 Financial Covenants. The Borrower shall ensure that:",
+      "page": null,
+      "quote": "(a) Leverage Ratio. The Leverage Ratio on each Quarter Date shall not exceed 3.50:1.00."
+     }
+    ]
+   },
+   {
+    "rule_id": "minimum_liquidity_test",
+    "name": "Minimum Liquidity",
+    "metric": "liquidity",
+    "operator": ">=",
+    "threshold": 5.0,
+    "unit": "EUR_m",
+    "frequency": "quarterly",
+    "definition_notes": "Liquidity means unrestricted cash and cash equivalents of the Group. Tested on final figures.",
+    "sources": [
+     {
+      "doc_id": "doc0",
+      "section": "Section 7.1 Financial Covenants. The Borrower shall ensure that:",
+      "page": null,
+      "quote": "(b) Minimum Liquidity. Liquidity on each Quarter Date shall not be less than EUR 5,000,000."
+     }
+    ]
+   },
+   {
+    "rule_id": "interest_coverage_test",
+    "name": "Interest Coverage",
+    "metric": "ltm_ebitda/net_interest_expense",
+    "operator": ">=",
+    "threshold": 2.0,
+    "unit": "x",
+    "frequency": "quarterly",
+    "definition_notes": "Net Interest Expense measured on a trailing twelve-month basis. LTM EBITDA used. Tested on final figures.",
+    "sources": [
+     {
+      "doc_id": "doc0",
+      "section": "Section 7.1 Financial Covenants. The Borrower shall ensure that:",
+      "page": null,
+      "quote": "(c) Interest Coverage. The Interest Coverage Ratio on each Quarter Date shall not be less than 2.00:1.00."
+     }
+    ]
+   }
+  ],
+  "facts": [
+   {
+    "metric": "unrestricted_cash",
+    "value": 5.3,
+    "unit": "EUR_m",
+    "period": "Q2-2026",
+    "basis": "final",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     }
+    ]
+   },
+   {
+    "metric": "unrestricted_cash",
+    "value": 4.2,
+    "unit": "EUR_m",
+    "period": "Q2-2026",
+    "basis": "preliminary",
+    "sources": [
+     {
+      "doc_id": "doc2",
+      "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+      "page": null,
+      "quote": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million."
+     }
+    ]
+   },
+   {
+    "metric": "ltm_ebitda",
+    "value": 100.0,
+    "unit": "EUR_m",
+    "period": "Q2-2026",
+    "basis": "ltm",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     }
+    ]
+   },
+   {
+    "metric": "ltm_ebitda",
+    "value": 102.0,
+    "unit": "EUR_m",
+    "period": "Q1-2026",
+    "basis": "ltm",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 31 March 2026: EUR 102.0 million"
+     }
+    ]
+   },
+   {
+    "metric": "ltm_ebitda",
+    "value": 104.0,
+    "unit": "EUR_m",
+    "period": "Q4-2025",
+    "basis": "ltm",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 31 December 2025: EUR 104.0 million"
+     }
+    ]
+   },
+   {
+    "metric": "ebitda",
+    "value": 25.0,
+    "unit": "EUR_m",
+    "period": "Q2-2026",
+    "basis": "quarterly",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "HIGHLIGHTS",
+      "page": null,
+      "quote": "EBITDA for the quarter was EUR 25.0 million"
+     }
+    ]
+   },
+   {
+    "metric": "ebitda",
+    "value": 24.5,
+    "unit": "EUR_m",
+    "period": "Q1-2026",
+    "basis": "quarterly",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "HIGHLIGHTS",
+      "page": null,
+      "quote": "(Q1 2026: EUR 24.5 million)"
+     }
+    ]
+   },
+   {
+    "metric": "total_debt",
+    "value": 370.0,
+    "unit": "EUR_m",
+    "period": "Q2-2026",
+    "basis": "final",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+      "page": null,
+      "quote": "Total financial indebtedness at 30 June 2026: EUR 370.0 million (31 March 2026: EUR 325.0 million; 31 December 2025: EUR 318.0 million)."
+     }
+    ]
+   },
+   {
+    "metric": "total_debt",
+    "value": 325.0,
+    "unit": "EUR_m",
+    "period": "Q1-2026",
+    "basis": "final",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+      "page": null,
+      "quote": "Total financial indebtedness at 30 June 2026: EUR 370.0 million (31 March 2026: EUR 325.0 million; 31 December 2025: EUR 318.0 million)."
+     }
+    ]
+   },
+   {
+    "metric": "net_interest_expense",
+    "value": 40.0,
+    "unit": "EUR_m",
+    "period": "Q2-2026",
+    "basis": "ltm",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Net Interest Expense (trailing twelve months) at 30 June 2026: EUR 40.0 million"
+     }
+    ]
+   },
+   {
+    "metric": "net_interest_expense",
+    "value": 36.4,
+    "unit": "EUR_m",
+    "period": "Q1-2026",
+    "basis": "ltm",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "(31 March 2026: EUR 36.4 million"
+     }
+    ]
+   },
+   {
+    "metric": "net_interest_expense",
+    "value": 33.5,
+    "unit": "EUR_m",
+    "period": "Q4-2025",
+    "basis": "ltm",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "31 December 2025: EUR 33.5 million)"
+     }
+    ]
+   }
+  ],
+  "findings": [
+   {
+    "rule_id": "leverage_ratio_test",
+    "covenant": "Leverage Ratio",
+    "required": "<= 3.50x",
+    "actual": "3.70x",
+    "actual_value": 3.7,
+    "status": "breach",
+    "headroom": "-0.20x",
+    "computed_by": "total debt 370.0 / ltm ebitda 100.0 = 3.70x",
+    "trend": [
+     {
+      "period": "Q1-2026",
+      "value": 3.1863
+     },
+     {
+      "period": "Q2-2026",
+      "value": 3.7
+     }
+    ],
+    "projection_note": "threshold already crossed",
+    "notes": "Selected final total_debt (fact 7) and LTM EBITDA (fact 2) for Q2-2026. Trend includes prior periods where both metrics are available on an LTM or final basis.",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+      "page": null,
+      "quote": "Total financial indebtedness at 30 June 2026: EUR 370.0 million (31 March 2026: EUR 325.0 million; 31 December 2025: EUR 318.0 million)."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     }
+    ]
+   },
+   {
+    "rule_id": "minimum_liquidity_test",
+    "covenant": "Minimum Liquidity",
+    "required": ">= EUR 5.0m",
+    "actual": "EUR 5.3m",
+    "actual_value": 5.3,
+    "status": "conflict",
+    "headroom": "+0.30m",
+    "computed_by": "direct: unrestricted_cash=5.3",
+    "trend": [],
+    "projection_note": "",
+    "notes": "Conflicting figures for the same metric: EUR 5.3m (final), EUR 4.2m (preliminary). Prudent provisional test used the more conservative value pending verification of the governing clause. Selected fact 0 (final, 5.3 EUR_m) as it is the worse (lower) value compared to fact 1 (preliminary, 4.2 EUR_m)? Wait, 4.2 is lower than 5.3. For a minimum liquidity test (>= 5.0), the lower value is the worse/more conservative one for compliance. Fact 1 (4.2) is the worse value. I must select the WORSE value for the provisional test. Fact 1 is 4.2, Fact 0 is 5.3. 4.2 < 5.3. So Fact 1 is the worse value for a 'greater than' covenant. I will select fact 1.",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc2",
+      "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+      "page": null,
+      "quote": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million."
+     }
+    ]
+   },
+   {
+    "rule_id": "interest_coverage_test",
+    "covenant": "Interest Coverage",
+    "required": ">= 2.00x",
+    "actual": "2.50x",
+    "actual_value": 2.5,
+    "status": "at_risk",
+    "headroom": "+0.50x",
+    "computed_by": "ltm ebitda 100.0 / net interest expense 40.0 = 2.50x",
+    "trend": [
+     {
+      "period": "Q4-2025",
+      "value": 3.1045
+     },
+     {
+      "period": "Q1-2026",
+      "value": 2.8022
+     },
+     {
+      "period": "Q2-2026",
+      "value": 2.5
+     }
+    ],
+    "projection_note": "trend -0.30/period; at this pace the >= 2.0 limit is crossed in ~1.7 periods (\u2248 Q4-2026)",
+    "notes": "Selected LTM EBITDA (fact 2) and LTM net_interest_expense (fact 9) for Q2-2026. Trend constructed from available prior periods with matching LTM metrics.",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Net Interest Expense (trailing twelve months) at 30 June 2026: EUR 40.0 million"
+     }
+    ]
+   }
+  ],
+  "causes": [
+   {
+    "rule_id": "leverage_ratio_test",
+    "description": "Term Loan B acquisition draw for Project Falcon (acquisition of TargetCo GmbH)",
+    "amount": 40.0,
+    "matched": true,
+    "sources": [
+     {
+      "doc_id": "doc2",
+      "section": "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+      "page": null,
+      "quote": "12 May 2026 \u2014 EUR 40.0 million \u2014 Term Loan B acquisition draw \u2014 Project Falcon (acquisition of TargetCo GmbH) \u2014 Board approval BM-2026-04 \u2014 fully documented."
+     }
+    ]
+   },
+   {
+    "rule_id": "leverage_ratio_test",
+    "description": "Short-term bilateral facility draw from Banque du Nord",
+    "amount": 5.0,
+    "matched": false,
+    "sources": [
+     {
+      "doc_id": "doc2",
+      "section": "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+      "page": null,
+      "quote": "03 June 2026 \u2014 EUR 5.0 million \u2014 Short-term bilateral facility, Banque du Nord \u2014 stated purpose: general corporate purposes \u2014 no board memo reference on file."
+     }
+    ]
+   }
+  ],
+  "cause_coverage": {
+   "leverage_ratio_test": 0.8889
+  },
+  "snippets": [
+   {
+    "doc_id": "doc2",
+    "section": "DEBT MOVEMENT SCHEDULE \u2014 QUARTER ENDED 30 JUNE 2026",
+    "page": null,
+    "text": "Opening Total Debt at 31 March 2026: EUR 325.0 million.\n\nNew drawings during the quarter:\n- 12 May 2026 \u2014 EUR 40.0 million \u2014 Term Loan B acquisition draw \u2014 Project Falcon (acquisition of TargetCo GmbH) \u2014 Board approval BM-2026-04 \u2014 fully documented.\n- 03 June 2026 \u2014 EUR 5.0 million \u2014 Short-term bilateral facility, Banque du Nord \u2014 stated purpose: general corporate purposes \u2014 no board memo reference on file.\n\nRepayments during the quarter: none.\n\nClosing Total Debt at 30 June 2026: EUR 370.0 million.",
+    "tag": "cause:leverage_ratio_test"
+   },
+   {
+    "doc_id": "doc0",
+    "section": "SECTION 1. DEFINITIONS",
+    "page": null,
+    "text": "\"EBITDA\" means consolidated earnings before interest, tax, depreciation and amortisation of the Group, calculated in accordance with the Accounting Principles.\n\n\"LTM EBITDA\" means EBITDA for the trailing twelve-month period ending on the relevant Quarter Date, as reconciled in the Borrower's quarterly reporting (alternative performance measures note). Quarterly (three-month) EBITDA figures shall not be used for covenant testing.\n\n\"Total Debt\" means the aggregate outstanding principal amount of all financial indebtedness of the Group, including bank facilities, notes, bilateral loans and finance leases.\n\n\"Net Interest Expense\" means interest payable on Total Debt less interest income, measured on a trailing twelve-month basis.\n\n\"Leverage Ratio\" means, on any Quarter Date, the ratio of Total Debt to LTM EBITDA.\n\n\"Interest Coverage Ratio\" means, on any Quarter Date, the ratio of LTM EBITDA to Net Interest Expense.\n\n\"Liquidity\" means unrestricted cash and cash equivalents of the Group.\n\n\"Quarter Date\" means 31 March, 30 June, 30 September and 31 December in each year.",
+    "tag": "cause:leverage_ratio_test"
+   },
+   {
+    "doc_id": "doc1",
+    "section": "LIQUIDITY AND CAPITAL RESOURCES",
+    "page": null,
+    "text": "Final unrestricted cash at the quarter end was EUR 5.3 million. This figure supersedes the preliminary treasury flash estimate circulated on 15 June 2026.\nNet Interest Expense (trailing twelve months) at 30 June 2026: EUR 40.0 million (31 March 2026: EUR 36.4 million; 31 December 2025: EUR 33.5 million). The increase reflects the additional debt drawn for Project Falcon.",
+    "tag": "cause:leverage_ratio_test"
+   },
+   {
+    "doc_id": "doc1",
+    "section": "HIGHLIGHTS",
+    "page": null,
+    "text": "Revenue for the quarter was EUR 118.4 million (Q1 2026: EUR 121.9 million).\nEBITDA for the quarter was EUR 25.0 million (Q1 2026: EUR 24.5 million).\nThe Group completed the acquisition of TargetCo GmbH (\"Project Falcon\") in May 2026, financed primarily through an acquisition draw under Term Loan B.",
+    "tag": "cause:leverage_ratio_test"
+   },
+   {
+    "doc_id": "doc0",
+    "section": "Section 10.2 Equity Cure.",
+    "page": null,
+    "text": "The Borrower may cure a breach of Section 7.1(a) no more than twice over the life of the Facility by way of a qualifying equity contribution applied to the reduction of Total Debt within 20 Business Days of delivery of the relevant compliance certificate.",
+    "tag": "clause:leverage_ratio_test"
+   },
+   {
+    "doc_id": "doc0",
+    "section": "Section 10.1 Financial Covenant Default.",
+    "page": null,
+    "text": "Failure to comply with any covenant in Section 7.1 constitutes an Event of Default, subject to Section 10.2.",
+    "tag": "clause:leverage_ratio_test"
+   },
+   {
+    "doc_id": "doc0",
+    "section": "Section 7.3 Notification of Default.",
+    "page": null,
+    "text": "The Borrower shall notify the Lender of any Default, and the steps being taken to remedy it, promptly upon becoming aware of it.",
+    "tag": "clause:leverage_ratio_test"
+   },
+   {
+    "doc_id": "doc0",
+    "section": "SECTION 1. DEFINITIONS",
+    "page": null,
+    "text": "\"EBITDA\" means consolidated earnings before interest, tax, depreciation and amortisation of the Group, calculated in accordance with the Accounting Principles.\n\n\"LTM EBITDA\" means EBITDA for the trailing twelve-month period ending on the relevant Quarter Date, as reconciled in the Borrower's quarterly reporting (alternative performance measures note). Quarterly (three-month) EBITDA figures shall not be used for covenant testing.\n\n\"Total Debt\" means the aggregate outstanding principal amount of all financial indebtedness of the Group, including bank facilities, notes, bilateral loans and finance leases.\n\n\"Net Interest Expense\" means interest payable on Total Debt less interest income, measured on a trailing twelve-month basis.\n\n\"Leverage Ratio\" means, on any Quarter Date, the ratio of Total Debt to LTM EBITDA.\n\n\"Interest Coverage Ratio\" means, on any Quarter Date, the ratio of LTM EBITDA to Net Interest Expense.\n\n\"Liquidity\" means unrestricted cash and cash equivalents of the Group.\n\n\"Quarter Date\" means 31 March, 30 June, 30 September and 31 December in each year.",
+    "tag": "clause:leverage_ratio_test"
+   },
+   {
+    "doc_id": "doc0",
+    "section": "Section 9.4 Measurement; Supersession.",
+    "page": null,
+    "text": "Financial covenants are tested by reference to the final figures reported as at the relevant Quarter Date. Preliminary, flash or interim estimates circulated before publication of the final quarter-end figures are superseded by the final figures for all covenant purposes.",
+    "tag": "clause:minimum_liquidity_test"
+   },
+   {
+    "doc_id": "doc0",
+    "section": "SECTION 1. DEFINITIONS",
+    "page": null,
+    "text": "\"EBITDA\" means consolidated earnings before interest, tax, depreciation and amortisation of the Group, calculated in accordance with the Accounting Principles.\n\n\"LTM EBITDA\" means EBITDA for the trailing twelve-month period ending on the relevant Quarter Date, as reconciled in the Borrower's quarterly reporting (alternative performance measures note). Quarterly (three-month) EBITDA figures shall not be used for covenant testing.\n\n\"Total Debt\" means the aggregate outstanding principal amount of all financial indebtedness of the Group, including bank facilities, notes, bilateral loans and finance leases.\n\n\"Net Interest Expense\" means interest payable on Total Debt less interest income, measured on a trailing twelve-month basis.\n\n\"Leverage Ratio\" means, on any Quarter Date, the ratio of Total Debt to LTM EBITDA.\n\n\"Interest Coverage Ratio\" means, on any Quarter Date, the ratio of LTM EBITDA to Net Interest Expense.\n\n\"Liquidity\" means unrestricted cash and cash equivalents of the Group.\n\n\"Quarter Date\" means 31 March, 30 June, 30 September and 31 December in each year.",
+    "tag": "clause:minimum_liquidity_test"
+   },
+   {
+    "doc_id": "doc0",
+    "section": "Section 7.2 Financial Reporting.",
+    "page": null,
+    "text": "The Borrower shall deliver to the Lender, within 45 days after each Quarter Date, a compliance certificate setting out computations of the financial covenants in reasonable detail.",
+    "tag": "clause:minimum_liquidity_test"
+   },
+   {
+    "doc_id": "doc0",
+    "section": "Section 7.1 Financial Covenants. The Borrower shall ensure that:",
+    "page": null,
+    "text": "(a) Leverage Ratio. The Leverage Ratio on each Quarter Date shall not exceed 3.50:1.00.\n\n(b) Minimum Liquidity. Liquidity on each Quarter Date shall not be less than EUR 5,000,000.\n\n(c) Interest Coverage. The Interest Coverage Ratio on each Quarter Date shall not be less than 2.00:1.00.",
+    "tag": "clause:minimum_liquidity_test"
+   }
+  ],
+  "verdicts": [
+   {
+    "rule_id": "leverage_ratio_test",
+    "original_status": "breach",
+    "final_status": "breach",
+    "overturned": false,
+    "checks": [
+     {
+      "check": "citation_valid",
+      "passed": true,
+      "note": "2/2 quotes located verbatim in source documents"
+     },
+     {
+      "check": "data_freshness",
+      "passed": true,
+      "note": "The Analyzer correctly selected the Q2-2026 final Total Debt (370.0) and LTM EBITDA (100.0). No fresher or superseding figures are available in the provided facts for the Q2-2026 test date."
+     },
+     {
+      "check": "definition_basis",
+      "passed": true,
+      "note": "The covenant requires 'LTM EBITDA' and 'final figures'. The Analyzer used the fact labeled 'basis=ltm' for EBITDA and 'basis=final' for Debt, strictly adhering to the definition: 'LTM EBITDA means EBITDA for the trailing twelve-month period... Quarterly (three-month) EBITDA figures shall not be used.'"
+     },
+     {
+      "check": "internal_consistency",
+      "passed": true,
+      "note": "The calculation 370.0 / 100.0 = 3.70x is mathematically correct. The conclusion that 3.70x > 3.50x constitutes a breach is logically sound based on the provided inputs."
+     }
+    ],
+    "confidence": 0.9778,
+    "rationale": "The Analyzer's finding is robust. The inputs match the governing definitions for basis (LTM vs Quarterly) and status (Final). The arithmetic is correct, and the resulting ratio of 3.70x clearly exceeds the 3.50x threshold. While Section 10.2 mentions an equity cure, the existence of a cure mechanism does not negate the initial breach status at the time of testing; it merely provides a remedy. Therefore, the 'breach' status stands.",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "CONSOLIDATED BALANCE SHEET (SUMMARY)",
+      "page": null,
+      "quote": "Total financial indebtedness at 30 June 2026: EUR 370.0 million (31 March 2026: EUR 325.0 million; 31 December 2025: EUR 318.0 million)."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     },
+     {
+      "doc_id": "doc0",
+      "section": "SECTION 1. DEFINITIONS",
+      "page": null,
+      "quote": "\"LTM EBITDA\" means EBITDA for the trailing twelve-month period ending on the relevant Quarter Date, as reconciled in the Borrower's quarterly reporting (alternative performance measures note). Quarterly (three-month) EBITDA figures shall not be used for covenant testing."
+     }
+    ]
+   },
+   {
+    "rule_id": "minimum_liquidity_test",
+    "original_status": "conflict",
+    "final_status": "ok",
+    "overturned": true,
+    "checks": [
+     {
+      "check": "citation_valid",
+      "passed": true,
+      "note": "3/3 quotes located verbatim in source documents"
+     },
+     {
+      "check": "data_freshness",
+      "passed": true,
+      "note": "The Analyzer's draft incorrectly selected the preliminary figure (4.2m) as the 'worse' value for a provisional test. Per the governing clause, preliminary figures are superseded by final figures. The final figure is 5.3m, which must be used. The draft's logic of picking the lower number was flawed because the lower number was invalid/superseded."
+     },
+     {
+      "check": "definition_basis",
+      "passed": true,
+      "note": "The covenant requires testing on 'final figures'. The corrected finding uses the final figure of 5.3m, satisfying the basis requirement."
+     },
+     {
+      "check": "internal_consistency",
+      "passed": true,
+      "note": "The corrected calculation (5.3m >= 5.0m) yields a pass ('ok'). The draft's conclusion of 'conflict' was based on an erroneous application of the supersession clause, creating a false conflict between a valid final number and an invalid preliminary number."
+     }
+    ],
+    "confidence": 1.0,
+    "rationale": "The Analyzer erroneously applied a 'prudent provisional' logic to select the lower preliminary figure (4.2m) over the higher final figure (5.3m). Section 9.4 explicitly states that preliminary estimates are 'superseded by the final figures for all covenant purposes.' Therefore, the only valid data point is the final figure of 5.3m. Since 5.3m >= 5.0m, the covenant is met, and the status is 'ok', not 'conflict' or 'breach'.",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Final unrestricted cash at the quarter end was EUR 5.3 million."
+     },
+     {
+      "doc_id": "doc2",
+      "section": "TREASURY FLASH NOTE \u2014 15 JUNE 2026 (PRELIMINARY)",
+      "page": null,
+      "quote": "Unrestricted cash position (estimate at 13 June 2026): EUR 4.2 million."
+     },
+     {
+      "doc_id": "doc0",
+      "section": "Section 9.4 Measurement; Supersession.",
+      "page": null,
+      "quote": "Preliminary, flash or interim estimates circulated before publication of the final quarter-end figures are superseded by the final figures for all covenant purposes."
+     }
+    ]
+   },
+   {
+    "rule_id": "interest_coverage_test",
+    "original_status": "at_risk",
+    "final_status": "at_risk",
+    "overturned": false,
+    "checks": [
+     {
+      "check": "citation_valid",
+      "passed": true,
+      "note": "2/2 quotes located verbatim in source documents"
+     },
+     {
+      "check": "data_freshness",
+      "passed": true,
+      "note": "The Analyzer used Q2-2026 figures (LTM EBITDA 100.0, Net Interest 40.0), which are the most recent final figures available in the provided fact set. No superseding data exists."
+     },
+     {
+      "check": "definition_basis",
+      "passed": true,
+      "note": "The covenant requires LTM basis for both EBITDA and Net Interest Expense. The Analyzer correctly selected facts with basis='ltm' for Q2-2026."
+     },
+     {
+      "check": "internal_consistency",
+      "passed": true,
+      "note": "Calculation 100.0 / 40.0 = 2.50x is correct. The trend analysis (-0.30/period) is consistent with the historical sequence: Q4-25 (104.0/33.5=3.10x), Q1-26 (102.0/36.4=2.80x), Q2-26 (100.0/40.0=2.50x). The projection that the 2.00x threshold is crossed in ~1.7 periods is mathematically sound based on this linear trend."
+     }
+    ],
+    "confidence": 0.9,
+    "rationale": "The Analyzer's finding is robust. The data used is the freshest available, the basis matches the covenant requirements, and the math/trend projection holds up to scrutiny. The 'at_risk' status is appropriate given the clear downward trajectory crossing the threshold within the defined horizon.",
+    "sources": [
+     {
+      "doc_id": "doc1",
+      "section": "NOTE 4 \u2014 ALTERNATIVE PERFORMANCE MEASURES (LTM RECONCILIATION)",
+      "page": null,
+      "quote": "at 30 June 2026: EUR 100.0 million"
+     },
+     {
+      "doc_id": "doc1",
+      "section": "LIQUIDITY AND CAPITAL RESOURCES",
+      "page": null,
+      "quote": "Net Interest Expense (trailing twelve months) at 30 June 2026: EUR 40.0 million"
+     }
+    ]
+   }
+  ],
+  "pending_retrievals": [],
+  "retrieval_rounds": 2,
+  "max_retrieval_rounds": 4,
+  "memo_markdown": "# Covenant Compliance Memo \u2014 ACME INDUSTRIES S.A.S.\n\n## Executive summary\nACME INDUSTRIES S.A.S. is in confirmed breach of the Leverage Ratio covenant as of Q2 2026, reporting 3.70x against a maximum threshold of 3.50x [Credit Agreement, Section 7.1(a)]. While Minimum Liquidity remains compliant at EUR 5.3m following the supersession of preliminary data, the Interest Coverage Ratio is trending downward and projected to breach by Q4 2026.\n\n## Findings\n\n| Covenant | Required | Actual | Verdict | Confidence |\n| :--- | :--- | :--- | :--- | :--- |\n| Leverage Ratio | <= 3.50x | 3.70x | **Breach** | 98% |\n| Minimum Liquidity | >= EUR 5.0m | EUR 5.3m | OK | 100% |\n| Interest Coverage | >= 2.00x | 2.50x | At Risk | 90% |\n\n## Root cause\nThe Leverage Ratio breach is primarily driven by a EUR 40.0m draw on Facility B to fund the Project Falcon acquisition of TargetCo GmbH [Debt Movement Schedule \u2014 Quarter Ended 30 June 2026]. Additionally, an undocumented EUR 5.0m draw from a short-term bilateral facility with Banque du Nord contributed to the debt increase, accounting for the unexplained portion of the leverage spike [Debt Movement Schedule \u2014 Quarter Ended 30 June 2026]. These debt increases were not offset by proportional growth in LTM EBITDA, which remains at EUR 100.0m [Note 4 \u2014 Alternative Performance Measures (LTM Reconciliation)].\n\n## Eliminated false positives\nThe initial flagging of a Minimum Liquidity breach was overturned. The analyzer incorrectly utilized a preliminary flash figure of EUR 4.2m; however, per Section 9.4, preliminary estimates are superseded by final figures for covenant purposes [Credit Agreement, Section 9.4 Measurement; Supersession]. The final reported unrestricted cash of EUR 5.3m confirms compliance with the >= EUR 5.0m requirement [Liquidity and Capital Resources].\n\n## Early warnings\nThe Interest Coverage Ratio has deteriorated consecutively from 3.10x (Q4 2025) to 2.50x (Q2 2026) [Note 4 \u2014 Alternative Performance Measures (LTM Reconciliation)]. At the current trajectory of -0.30x per period, the ratio is projected to fall below the 2.00x covenant floor within approximately 1.7 periods, targeting a breach in Q4 2026.\n\n## Recommended actions\n1.  **Invoke Equity Cure:** Immediately notify the Lender of the intent to cure the Leverage Ratio breach under Section 10.2 by injecting qualifying equity to reduce Total Debt within 20 Business Days of the compliance certificate delivery [Credit Agreement, Section 10.2 Equity Cure].\n2.  **Formal Notification:** Issue a formal notice of Default pursuant to Section 7.3, detailing the breach and the specific remedial steps (equity injection) being undertaken [Credit Agreement, Section 7.3 Notification of Default].\n3.  **Address Undocumented Debt:** Provide immediate documentation or repayment plans for the EUR 5.0m Banque du Nord facility to ensure Total Debt calculations align with defined Financial Indebtedness [Credit Agreement, Section 1. Definitions].\n4.  **Mitigation Planning:** Develop a liquidity preservation plan to arrest the decline in Interest Coverage, as a second covenant breach would constitute an Event of Default under Section 10.1 [Credit Agreement, Section 10.1 Financial Covenant Default].\n\n---\n*Methodology: every figure was computed by deterministic tools, never by the language model. Confidence per finding = 80% weighted Critic checks (citation validity 30%, data freshness 25%, definition basis 25%, internal consistency 20%) + 20% cause coverage \u2014 the share of the flagged movement matched to clearly documented causes. At-risk verdicts based on a trend projection carry an additional 0.9 projection factor. Overall confidence is the weakest actionable finding.*",
+  "overall_confidence": 0.9
+ }
+}

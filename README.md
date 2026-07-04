@@ -1,67 +1,99 @@
 # CovenantSentinel
 
-**An agentic covenant-compliance auditor for credit teams — it reads the credit agreement, reads the borrower's financials, computes ratios with deterministic tools, challenges its own findings with an adversarial Critic, and outputs a cited escalation memo with an evidence-based confidence score.**
+**An agentic covenant-compliance auditor for credit teams.** It reads the credit agreement and the borrower's financials, computes every ratio with deterministic tools, challenges its own findings with an adversarial Critic, and delivers a cited escalation memo with an evidence-based confidence score — while you watch it reason, live.
 
-> 🏗️ Built from scratch during the **RAISE Summit Hackathon 2026** (July 4–5, Paris) — **Vultr Enterprise Agent track**. Every commit in this repository was made during the event.
+> 🏗️ Built from scratch during the **RAISE Summit Hackathon 2026** (July 4–5, Paris) — **Vultr Enterprise Agent track** · Remote · Every commit in this repository was made during the event.
+
+![Live audit — the agent planning, retrieving, computing and deciding in real time](docs/ui-live-audit.jpg)
 
 ## The problem
 
-Banks and private-credit funds monitor loan covenants by hand: open a 40-page credit agreement, find the covenant clauses, open the quarterly report, find the right figures (LTM, not quarterly!), compute, compare — repeated across hundreds of borrowers every quarter. It is slow, error-prone, and a missed breach is a real financial risk.
+Banks and private-credit funds monitor loan covenants by hand: open a 40-page credit agreement, find the covenant clauses, open the quarterly report, find the right figures (LTM, not quarterly!), check whether a flash estimate was superseded, compute, compare — repeated across hundreds of borrowers every quarter. It is slow, error-prone in exactly the ways that matter, and a missed breach is a real financial loss.
 
 ## What the agent does
 
-1. **Plans** which covenants to test after reading the agreement's covenant section
-2. **Retrieves** the rules (thresholds, definitions) from the credit agreement — with citations
-3. **Retrieves** the figures from the financial report and treasury pack — with citations
-4. **Calls deterministic tools** to compute ratios, headroom and trend projections — the LLM never does arithmetic
-5. **Decides**: breach / at-risk (drifting toward breach) / ok / conflicting evidence
-6. **Retrieves again** when analysis exposes a gap (e.g. the covenant requires *LTM* EBITDA but the first pass found the quarterly figure), and cross-checks debt transactions to explain *why* a metric moved
-7. **Critic pass** — a second, adversarial agent re-checks every finding (data freshness, definition basis, citation validity) and kills false positives
-8. **Synthesizes** an escalation memo: confirmed breaches, discarded false positives, early warnings, per-finding citations, recommended actions, and a **deterministically computed confidence score**
-
-## Architecture
-
 ```
-[Upload docs] → PLANNER → RETRIEVER ⇄ ANALYZER (deterministic tools) → CRITIC → SYNTHESIZER → Cited memo + confidence
-                              ↑ multi-turn retrieval loop whenever analysis exposes a gap
-        Every step streams live to the UI over SSE — you watch the agent reason.
+PLANNER ──► RETRIEVER ──► ANALYZER ──► CRITIC ──► SYNTHESIZER
+                ▲             │
+                └─────────────┘
+        multi-turn loop: the agent decides it needs
+        more evidence (causes, governing clauses, missing figures)
 ```
 
-## Stack
+1. **Plans** — reads the agreement, identifies every financial covenant and its *measurement basis* ("LTM EBITDA, quarterly figures shall not be used")
+2. **Retrieves, stratified** — hybrid retrieval (BM25 recall → **VultronRetrieverPrime** semantic rerank on Vultr) runs *per source document*, so a two-line treasury flash note is never drowned out by the main report
+3. **Extracts typed facts** — every figure carries its period, its basis (`final` / `preliminary` / `ltm` / `quarterly`) and a verbatim citation
+4. **Computes deterministically** — ratios, thresholds, headroom and trend projections are pure Python tools; the LLM never does arithmetic
+5. **Decides** — breach / at-risk (drifting toward breach, with a projected crossing quarter) / ok / conflicting evidence, applying professional prudence to preliminary-vs-final conflicts
+6. **Loops** — a breach triggers retrieval of the *transactions that caused it* and of remedy clauses (equity cure); a conflict triggers retrieval of the governing measurement clause
+7. **Critic pass** — a second, adversarial reviewer re-checks every finding: citation validity (**verified mechanically in code**, not by a model), data freshness, definition basis, internal consistency — and kills false positives
+8. **Synthesizes** — an escalation memo a credit officer could actually send: verdicts table, root cause with the unexplained portion called out, eliminated false positives, early warnings, clause-cited recommended actions
 
-- **LLM**: Vultr Serverless Inference (`Qwen/Qwen3.5-397B-A17B`), streaming with retry — no dependency on native function-calling (JSON-schema prompting + Pydantic validation)
-- **Retrieval**: hybrid two-stage — BM25 candidate recall, then semantic reranking by `vultr/VultronRetrieverPrime-Qwen3.5-8B` via Vultr's `/v1/rerank` (pure-BM25 fallback so a network hiccup never kills a run)
-- **Orchestration**: LangGraph over a typed Pydantic state
-- **Backend**: FastAPI + SSE (live reasoning trace, replayable — every run persisted to `traces/`)
-- **Frontend**: React + Vite + TypeScript + Tailwind
+![The signature moment — the Critic eliminates a false positive by citing the governing clause](docs/ui-critic-moment.jpg)
+
+## The two demo cases
+
+| Case | Documents | What the agent concludes |
+|---|---|---|
+| **ACME Industries S.A.S.** (stressed) | credit agreement + Q2-2026 report + treasury pack (`fixtures/`, also as [real PDFs](fixtures/pdf/)) | **Leverage 3.70x vs 3.50x cap → confirmed BREACH (98%)**, cause-matched: EUR 40m documented acquisition draw + EUR 5m undocumented facility → 89% cause coverage · **Liquidity flash 4.2m vs final 5.3m → provisional flag OVERTURNED by the Critic citing Section 9.4 (100%)** · **Interest coverage 2.50x, drifting −0.30x/quarter → AT RISK, projected to cross the 2.00x floor around Q4-2026 (90%)** |
+| **Globex Manufacturing GmbH** (healthy) | same document types | **All three covenants compliant (100%)** — the agent also says "everything is fine" when it is, with headroom and long-horizon trend context |
+
+Zero hallucinated numbers in either case: every figure in every memo traces to a tool call and a verbatim quote.
+
+## Why you can trust the output
+
+- **The LLM never does arithmetic.** Every number comes from `app/tools/financial.py` (ratios, thresholds, least-squares trend projection), and each finding records the exact tool call that produced it.
+- **Citations are verified by code, not vibes.** The Critic runs a mechanical check: every quoted citation must appear *verbatim* in the source document. In the UI, click any § chip to see the passage highlighted in context.
+- **Confidence is a formula, not a feeling.** Per finding: 80% weighted Critic checks (citation validity 30, data freshness 25, definition basis 25, internal consistency 20) + 20% *cause coverage* — the share of the flagged movement matched to clearly documented causes. Trend-projection verdicts carry a further 0.9 factor. Overall confidence = the weakest actionable finding.
+- **Every run is recorded.** The full event trace + final state land in `backend/traces/`; a verified reference run is frozen at [`fixtures/golden_trace_acme.json`](fixtures/golden_trace_acme.json).
+- **A regression gate guards the behaviour.** `backend/scripts/verify_run.py` asserts 9 expectations (verdicts, overturns, confidence bands, cause coverage, citations) — it has passed on every full run, including the PDF-ingestion path.
+
+## Built on Vultr
+
+- **Reasoning**: `Qwen/Qwen3.5-397B-A17B` on **Vultr Serverless Inference** — streaming with retry (long non-streamed generations 504 at the gateway) and `enable_thinking: false` (benchmarked **3.2s vs 4+ minutes per call** on this endpoint, with cleaner JSON)
+- **Retrieval**: `vultr/VultronRetrieverPrime-Qwen3.5-8B` via Vultr's `/v1/rerank` as the semantic stage of a hybrid retriever (BM25 recall → rerank), degrading gracefully to pure BM25 if the network blinks
+- **No native function-calling dependency**: every structured step is JSON-schema-prompted, Pydantic-validated, and retried with the validation error fed back — robust across models
 
 ## Run it
 
-### Backend
-
-```
+```bash
+# backend
 cd backend
-python -m venv .venv
-.venv\Scripts\activate          # Windows  (source .venv/bin/activate on Unix)
+python -m venv .venv && .venv\Scripts\activate     # source .venv/bin/activate on Unix
 pip install -r requirements.txt
-copy .env.example .env          # then put your VULTR_API_KEY inside
-uvicorn app.main:app --reload --port 8000
-```
+copy .env.example .env                             # add your VULTR_API_KEY
+uvicorn app.main:app --port 8000
 
-### Frontend
-
-```
+# frontend (second terminal)
 cd frontend
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173 and upload the three documents from `fixtures/`.
+Open **http://localhost:5173** and click **▶ Run the ACME demo case** — or upload your own credit agreement + financials (`.pdf`, `.txt`, `.md`; any filenames — documents are classified by content).
 
-## Demo scenario
+CLI harness: `python scripts/run_demo.py [--pdf | --globex]` · Regression gate: `python scripts/verify_run.py --run`
 
-See [`fixtures/README.md`](fixtures/README.md): one real breach (leverage 3.70x vs a 3.50x cap, cause-matched to an acquisition drawdown), one false positive the Critic eliminates (preliminary vs final cash figures), and one early warning (interest coverage drifting toward its floor, with a projected breach quarter).
+## Repo map
+
+```
+backend/app/agent/    graph (LangGraph), nodes (planner/retriever/analyzer/critic/synthesizer),
+                      typed state, reliability-first LLM wrapper
+backend/app/rag/      hybrid retrieval: BM25 recall → VultronRetriever rerank (+fallback)
+backend/app/tools/    deterministic financial math + confidence formula (unit-tested)
+backend/app/ingest/   txt/pdf parser with citable section locators
+backend/app/core/     SSE event bus (live reasoning trace), settings
+frontend/src/         React live-trace UI: phase stepper, tool calls, drift sparklines,
+                      Critic verdicts, evidence viewer, rendered memo
+fixtures/             both demo cases (+ PDF versions) and the verified golden trace
+```
+
+## Honest limitations & where this goes
+
+- Covenant *types* covered today: ratio and absolute-floor financial covenants with quarterly testing; springing covenants, baskets and cure mechanics beyond Section 10.2 are recognised in text but not modelled.
+- Trend projection is a deliberate 3-point linear estimate — flagged as such and discounted in the confidence score.
+- Next: portfolio-scale scheduled monitoring, waiver/amendment drafting from the memo, and a covenant-definition library learned across deals — the path from auditor to always-on credit sentinel.
 
 ## License
 
-MIT
+MIT — built by [Yamina Atmaoui](https://github.com/YAMINA-2109) at RAISE Summit Hackathon 2026.

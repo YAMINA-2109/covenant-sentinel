@@ -32,6 +32,12 @@ FILES = [
 ]
 if "--pdf" in sys.argv:  # exercise the PDF ingestion path end-to-end
     FILES = [f"pdf/{name.removesuffix('.txt')}.pdf" for name in FILES]
+if "--globex" in sys.argv:  # second demo case: a compliant borrower
+    FILES = [
+        "globex_facilities_agreement.txt",
+        "globex_q2_2026_financial_report.txt",
+        "globex_treasury_pack_q2_2026.txt",
+    ]
 
 
 async def print_events(bus: RunBus) -> None:

@@ -1,6 +1,12 @@
-# Demo fixtures — the ACME scenario
+# Demo fixtures
 
-Synthetic documents authored during the hackathon for a reproducible demo. Upload all three files together. The scenario is engineered so the agent must demonstrate every behaviour the Vultr track brief asks for: multi-turn retrieval, tool calls, decisions, cause matching and a defensible confidence score.
+Synthetic documents authored during the hackathon for reproducible demos. Two cases: **ACME** (stressed borrower — engineered so the agent must demonstrate every behaviour the Vultr track brief asks for) and **Globex** (healthy borrower — proves the agent also says "compliant" when everything is fine). PDF versions of the ACME case live in `pdf/` (same content, typeset as lender-file documents; regenerate with `backend/scripts/make_pdf_fixtures.py`). A fully verified reference run is frozen in `golden_trace_acme.json` (events + final state).
+
+## Case 2 — Globex Manufacturing GmbH (healthy)
+
+`globex_facilities_agreement.txt` + `globex_q2_2026_financial_report.txt` + `globex_treasury_pack_q2_2026.txt` — covenants ≤4.00x leverage / ≥ EUR 10m liquidity / ≥2.50x interest coverage. Expected: **3× OK at 100% confidence** (3.20x, EUR 14.8m, 2.78x), stable long-horizon trends, no false alarms. Run it with `python scripts/run_demo.py --globex`.
+
+## Case 1 — the ACME scenario
 
 ## The three documents
 
