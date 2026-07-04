@@ -54,6 +54,14 @@ Zero hallucinated numbers in either case: every figure in every memo traces to a
 - **Every run is recorded.** The full event trace + final state land in `backend/traces/`; a verified reference run is frozen at [`fixtures/golden_trace_acme.json`](fixtures/golden_trace_acme.json).
 - **A regression gate guards the behaviour.** `backend/scripts/verify_run.py` asserts 9 expectations (verdicts, overturns, confidence bands, cause coverage, citations) — it has passed on every full run, including the PDF-ingestion path.
 
+## 📈 Who it's for, the market & the business model
+
+- **Users:** credit-risk and portfolio-monitoring teams at banks' leveraged-finance desks, private-credit & direct-lending funds, CLO managers, and corporate treasury — anyone who tests covenants across a book of agreements every quarter.
+- **A real, growing market:** private credit alone is a **multi-trillion-dollar, fast-growing** asset class, yet covenant monitoring is *still* manual, quarterly, and bottlenecked on scarce senior-analyst time. A single missed or late-detected breach means unpriced risk and lost remedies (equity cures, waivers, repricing).
+- **Business model:** B2B SaaS — tiered subscription by number of monitored agreements + analyst seats, plus **usage-based pricing per audit run** (aligned with agent compute); enterprise / private-VPC deployment for institutions with strict data-confidentiality needs.
+- **Go-to-market wedge:** land with lean mid-market private-credit funds (acute pain, short sales cycles), then expand to banks and enterprise lenders.
+- **Why it's defensible:** regulated finance *cannot* deploy a black box that might hallucinate a number. CovenantSentinel's **deterministic math, code-verified citations, and formula-based confidence** are precisely what make it *usable* — the trust engine is the moat, not a feature.
+
 ## Built on Vultr
 
 - **Reasoning**: `Qwen/Qwen3.5-397B-A17B` on **Vultr Serverless Inference** — streaming with retry (long non-streamed generations 504 at the gateway) and `enable_thinking: false` (benchmarked **3.2s vs 4+ minutes per call** on this endpoint, with cleaner JSON)
@@ -94,11 +102,21 @@ frontend/src/         React live-trace UI: phase stepper, tool calls, drift spar
 fixtures/             both demo cases (+ PDF versions) and the verified golden trace
 ```
 
-## Honest limitations & where this goes
+## 🔭 Vision — from a covenant auditor to an always-on credit sentinel
+
+Today CovenantSentinel audits one borrower on demand. The same architecture — *plan → ground in documents → compute → self-verify → cite* — scales into a category:
+
+- **Portfolio-scale, always-on monitoring** — ingest every agreement and each new filing as it lands, and alert the moment a covenant drifts. Not once a quarter — continuously.
+- **From detection to action** — auto-draft the waiver, amendment or escalation letter (grounded in the same clauses), turning a finding into a next step.
+- **A covenant-definition library** learned across deals, so the agent sharpens with every agreement it reads.
+- **Adjacent verticals** — the trust engine is domain-general: regulatory change-impact, contract-risk review, KYC/onboarding. CovenantSentinel is the first vertical of a broader category: **self-verifying, citation-first compliance agents for regulated enterprises.**
+
+This is the *future of work* the enterprise-agent track asks for: not replacing the analyst, but giving every credit team an expert-grade, always-on, self-checking co-auditor.
+
+## Honest limitations
 
 - Covenant *types* covered today: ratio and absolute-floor financial covenants with quarterly testing; springing covenants, baskets and cure mechanics beyond Section 10.2 are recognised in text but not modelled.
 - Trend projection is a deliberate 3-point linear estimate — flagged as such and discounted in the confidence score.
-- Next: portfolio-scale scheduled monitoring, waiver/amendment drafting from the memo, and a covenant-definition library learned across deals — the path from auditor to always-on credit sentinel.
 
 ## License
 
