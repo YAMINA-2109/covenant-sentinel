@@ -1,0 +1,31 @@
+import type { AgentEvent } from "./types";
+
+export async function startAudit(files: File[]): Promise<string> {
+  const body = new FormData();
+  for (const file of files) body.append("files", file);
+  const response = await fetch("/api/audits", { method: "POST", body });
+  if (!response.ok) throw new Error(`audit start failed: ${response.status}`);
+  const json = (await response.json()) as { run_id: string };
+  return json.run_id;
+}
+
+export function streamAudit(
+  runId: string,
+  onEvent: (event: AgentEvent) => void,
+  onDone: () => void,
+): () => void {
+  const source = new EventSource(`/api/audits/${runId}/events`);
+  source.onmessage = (message) => {
+    const event = JSON.parse(message.data) as AgentEvent;
+    onEvent(event);
+    if (event.type === "run_completed" || event.type === "run_failed") {
+      source.close();
+      onDone();
+    }
+  };
+  source.onerror = () => {
+    source.close();
+    onDone();
+  };
+  return () => source.close();
+}

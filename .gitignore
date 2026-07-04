@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# Node
+node_modules/
+dist/
+
+# Env & secrets — never commit keys
+.env
+.env.*
+!.env.example
+
+# Run artifacts
+*.log
+backend/traces/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

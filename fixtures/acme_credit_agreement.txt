@@ -1,0 +1,52 @@
+CREDIT AGREEMENT
+
+Dated as of 12 March 2024
+
+BETWEEN:
+ACME INDUSTRIES S.A.S., a societe par actions simplifiee incorporated in France (the "Borrower")
+AND
+BANQUE LUTECE S.A. (the "Lender")
+
+FACILITY: EUR 50,000,000 SENIOR TERM LOAN FACILITY ("Facility B")
+
+SECTION 1. DEFINITIONS
+
+"EBITDA" means consolidated earnings before interest, tax, depreciation and amortisation of the Group, calculated in accordance with the Accounting Principles.
+
+"LTM EBITDA" means EBITDA for the trailing twelve-month period ending on the relevant Quarter Date, as reconciled in the Borrower's quarterly reporting (alternative performance measures note). Quarterly (three-month) EBITDA figures shall not be used for covenant testing.
+
+"Total Debt" means the aggregate outstanding principal amount of all financial indebtedness of the Group, including bank facilities, notes, bilateral loans and finance leases.
+
+"Net Interest Expense" means interest payable on Total Debt less interest income, measured on a trailing twelve-month basis.
+
+"Leverage Ratio" means, on any Quarter Date, the ratio of Total Debt to LTM EBITDA.
+
+"Interest Coverage Ratio" means, on any Quarter Date, the ratio of LTM EBITDA to Net Interest Expense.
+
+"Liquidity" means unrestricted cash and cash equivalents of the Group.
+
+"Quarter Date" means 31 March, 30 June, 30 September and 31 December in each year.
+
+SECTION 7. COVENANTS
+
+Section 7.1 Financial Covenants. The Borrower shall ensure that:
+
+(a) Leverage Ratio. The Leverage Ratio on each Quarter Date shall not exceed 3.50:1.00.
+
+(b) Minimum Liquidity. Liquidity on each Quarter Date shall not be less than EUR 5,000,000.
+
+(c) Interest Coverage. The Interest Coverage Ratio on each Quarter Date shall not be less than 2.00:1.00.
+
+Section 7.2 Financial Reporting. The Borrower shall deliver to the Lender, within 45 days after each Quarter Date, a compliance certificate setting out computations of the financial covenants in reasonable detail.
+
+Section 7.3 Notification of Default. The Borrower shall notify the Lender of any Default, and the steps being taken to remedy it, promptly upon becoming aware of it.
+
+SECTION 9. MISCELLANEOUS
+
+Section 9.4 Measurement; Supersession. Financial covenants are tested by reference to the final figures reported as at the relevant Quarter Date. Preliminary, flash or interim estimates circulated before publication of the final quarter-end figures are superseded by the final figures for all covenant purposes.
+
+SECTION 10. EVENTS OF DEFAULT
+
+Section 10.1 Financial Covenant Default. Failure to comply with any covenant in Section 7.1 constitutes an Event of Default, subject to Section 10.2.
+
+Section 10.2 Equity Cure. The Borrower may cure a breach of Section 7.1(a) no more than twice over the life of the Facility by way of a qualifying equity contribution applied to the reduction of Total Debt within 20 Business Days of delivery of the relevant compliance certificate.
