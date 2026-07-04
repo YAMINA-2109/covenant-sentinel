@@ -7,7 +7,7 @@ REPO_URL="https://github.com/YAMINA-2109/covenant-sentinel.git"
 APP_DIR="/opt/covenant-sentinel"
 
 apt-get update -y
-apt-get install -y python3-venv python3-pip git ufw curl
+apt-get install -y python3-venv python3-pip git ufw curl fonts-dejavu-core
 
 if [ -d "$APP_DIR/.git" ]; then
   git -C "$APP_DIR" pull

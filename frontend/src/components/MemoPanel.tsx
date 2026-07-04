@@ -131,12 +131,23 @@ export function MemoPanel({
             dangerouslySetInnerHTML={{ __html: renderMarkdown(memoMarkdown) }}
           />
         </div>
-        <button
-          onClick={() => navigator.clipboard.writeText(memoMarkdown)}
-          className="mt-4 rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:bg-slate-700"
-        >
-          Copy memo (markdown)
-        </button>
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          {runId && (
+            <a
+              href={`/api/audits/${runId}/memo.pdf`}
+              download
+              className="rounded-md bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-500"
+            >
+              ⬇ Download memo (PDF)
+            </a>
+          )}
+          <button
+            onClick={() => navigator.clipboard.writeText(memoMarkdown)}
+            className="rounded-md border border-slate-700 bg-slate-800/60 px-3 py-2 text-xs font-medium text-slate-300 transition hover:bg-slate-700"
+          >
+            Copy markdown
+          </button>
+        </div>
       </div>
     </div>
   );

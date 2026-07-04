@@ -120,6 +120,29 @@ async def get_audit(run_id: str) -> AuditState:
     return context.state
 
 
+@router.get("/audits/{run_id}/memo.pdf")
+async def download_memo_pdf(run_id: str):
+    """The business deliverable: the escalation memo as a print-ready PDF."""
+    context = _RUNS.get(run_id)
+    if context is None:
+        raise HTTPException(status_code=404, detail="unknown run")
+    if not context.state.memo_markdown:
+        raise HTTPException(status_code=409, detail="audit not finished yet")
+
+    from fastapi import Response
+
+    from app.reporting.memo_pdf import memo_to_pdf
+
+    pdf_bytes = memo_to_pdf(context.state)
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={
+            "Content-Disposition": f'attachment; filename="covenant_memo_{run_id}.pdf"'
+        },
+    )
+
+
 @router.post("/audits/{run_id}/ask")
 async def ask_auditor(run_id: str, body: dict) -> dict:
     """Grounded Q&A over a finished audit: answers come only from the audit

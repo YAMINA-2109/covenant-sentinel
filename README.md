@@ -31,7 +31,7 @@ flowchart LR
 5. **Decides** — breach / at-risk (drifting toward breach, with a projected crossing quarter) / ok / conflicting evidence, applying professional prudence to preliminary-vs-final conflicts
 6. **Loops** — a breach triggers retrieval of the *transactions that caused it* and of remedy clauses (equity cure); a conflict triggers retrieval of the governing measurement clause
 7. **Critic pass** — a second, adversarial reviewer re-checks every finding: citation validity (**verified mechanically in code**, not by a model), data freshness, definition basis, internal consistency — and kills false positives
-8. **Synthesizes** — an escalation memo a credit officer could actually send: verdicts table, root cause with the unexplained portion called out, eliminated false positives, early warnings, clause-cited recommended actions
+8. **Synthesizes** — an escalation memo a credit officer could actually send: verdicts table, root cause with the unexplained portion called out, eliminated false positives, early warnings, clause-cited recommended actions — **downloadable as a branded, print-ready PDF** (business users don't read markdown), with a grounded "Ask the auditor" Q&A on top
 
 ![Live audit — deterministic tool calls, a breach card with its drift sparkline, and the agent deciding it needs more evidence](docs/ui-live-audit.jpg)
 

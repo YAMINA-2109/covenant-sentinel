@@ -1,2 +1,2 @@
 # Dev-only tooling (not needed to run the app)
-fpdf2>=2.7    # scripts/make_pdf_fixtures.py — typesets the demo fixtures as PDFs
+# (fpdf2 moved to requirements.txt — now a runtime dependency for memo PDF export)
