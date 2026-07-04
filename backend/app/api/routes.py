@@ -51,15 +51,9 @@ async def run_pipeline(context: RunContext) -> None:
                 },
             )
 
-        from app.agent.graph import run_audit  # imported lazily: lands in next commits
+        from app.agent.graph import run_audit  # lazy: keeps API importable if deps are mid-install
 
         await run_audit(state, bus)
-    except ModuleNotFoundError:
-        bus.publish(
-            Node.SYSTEM,
-            EventType.RUN_COMPLETED,
-            {"note": "Ingestion online — agent graph lands in the next commits."},
-        )
     except Exception as exc:  # surface real failures to the UI, never hang the stream
         bus.publish(Node.SYSTEM, EventType.RUN_FAILED, {"error": str(exc)})
 

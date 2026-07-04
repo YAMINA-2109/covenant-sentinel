@@ -18,6 +18,14 @@ _HEADING_PATTERNS = [
 ]
 _ALL_CAPS = re.compile(r"^[A-Z0-9][A-Z0-9 \-&(),./'’—–]{5,}$")
 
+# Legal drafting often writes subsections as a single paragraph:
+# "Section 9.4 Measurement; Supersession. Financial covenants are tested..."
+# Split those so the citation points at "Section 9.4 ...", not the parent.
+_NUMBERED_INLINE = re.compile(
+    r"^(?P<title>(?:section|note|article|schedule|annex|exhibit)\s+\d+(?:\.\d+)*[^.\n]{0,60}\.)\s+(?P<rest>\S.*)$",
+    re.IGNORECASE,
+)
+
 
 def _is_heading(line: str) -> bool:
     stripped = line.strip()
@@ -57,12 +65,20 @@ def parse_text(doc_id: str, filename: str, raw: str, page: int | None = None) ->
             )
 
     for line in raw.splitlines():
-        if _is_heading(line):
+        stripped = line.strip()
+        if _is_heading(stripped):
             flush()
             buffer = []
-            title = line.strip()
-        else:
-            buffer.append(line)
+            title = stripped
+            continue
+        if len(stripped) > 90:
+            inline = _NUMBERED_INLINE.match(stripped)
+            if inline:
+                flush()
+                title = inline.group("title").strip()
+                buffer = [inline.group("rest")]
+                continue
+        buffer.append(line)
     flush()
 
     return ParsedDoc(

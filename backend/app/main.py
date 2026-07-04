@@ -18,4 +18,8 @@ app.include_router(router)
 
 @app.get("/healthz")
 def healthz() -> dict:
-    return {"ok": True, "chat_model": settings.vultr_chat_model}
+    return {
+        "ok": True,
+        "chat_model": settings.vultr_chat_model,
+        "vultr_key_configured": bool(settings.vultr_api_key),
+    }

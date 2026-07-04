@@ -103,9 +103,19 @@ class CauseMatch(BaseModel):
 
 
 class RetrievalRequest(BaseModel):
-    reason: str
+    reason: str  # "facts:<rule_id>" | "cause:<rule_id>" | "clause:<rule_id>"
     query: str
     doc_kind: str | None = None
+
+
+class EvidenceSnippet(BaseModel):
+    """Raw retrieved passage kept for downstream reasoning (causes, clauses)."""
+
+    doc_id: str
+    section: str = ""
+    page: int | None = None
+    text: str
+    tag: str = ""  # mirrors the RetrievalRequest reason that fetched it
 
 
 class AuditState(BaseModel):
@@ -116,6 +126,8 @@ class AuditState(BaseModel):
     facts: list[FinancialFact] = Field(default_factory=list)
     findings: list[Finding] = Field(default_factory=list)
     causes: list[CauseMatch] = Field(default_factory=list)
+    cause_coverage: dict[str, float] = Field(default_factory=dict)  # rule_id -> [0,1]
+    snippets: list[EvidenceSnippet] = Field(default_factory=list)
     verdicts: list[Verdict] = Field(default_factory=list)
     pending_retrievals: list[RetrievalRequest] = Field(default_factory=list)
     retrieval_rounds: int = 0
