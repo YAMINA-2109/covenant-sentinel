@@ -130,6 +130,11 @@ async def run_critic(state: AuditState, ctx) -> None:
                 "overturned": overturned,
                 "confidence": confidence,
                 "rationale": output.rationale[:400],
+                "citations": [
+                    {"doc_id": s.doc_id, "section": s.section, "page": s.page, "quote": s.quote}
+                    for s in sources[:5]
+                    if s.quote
+                ],
             },
         )
         return verdict

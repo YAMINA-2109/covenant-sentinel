@@ -1,4 +1,11 @@
-import type { AgentEvent } from "./types";
+import type { AgentEvent, ParsedDoc } from "./types";
+
+export async function getAuditDocuments(runId: string): Promise<ParsedDoc[]> {
+  const response = await fetch(`/api/audits/${runId}`);
+  if (!response.ok) throw new Error(`audit fetch failed: ${response.status}`);
+  const state = (await response.json()) as { documents: ParsedDoc[] };
+  return state.documents ?? [];
+}
 
 export async function startAudit(files: File[]): Promise<string> {
   const body = new FormData();

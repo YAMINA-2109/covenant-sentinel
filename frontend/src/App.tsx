@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { startAudit, startDemoAudit, streamAudit } from "./lib/api";
-import type { AgentEvent, NodeName } from "./lib/types";
+import { getAuditDocuments, startAudit, startDemoAudit, streamAudit } from "./lib/api";
+import type { AgentEvent, Citation, NodeName, ParsedDoc } from "./lib/types";
 import { TraceEventRow } from "./components/Trace";
 import { MemoPanel } from "./components/MemoPanel";
+import { EvidencePanel, type EvidenceTarget } from "./components/EvidencePanel";
 
 const PHASES: { node: NodeName; label: string }[] = [
   { node: "planner", label: "Plan" },
@@ -53,6 +54,25 @@ export default function App() {
   const stopRef = useRef<(() => void) | null>(null);
   const traceRef = useRef<HTMLDivElement | null>(null);
   const stickToBottomRef = useRef(true);
+  const runIdRef = useRef<string | null>(null);
+  const docsCacheRef = useRef<{ runId: string; docs: ParsedDoc[] } | null>(null);
+  const [evidence, setEvidence] = useState<EvidenceTarget | null>(null);
+
+  async function openCitation(citation: Citation) {
+    const runId = runIdRef.current;
+    if (!runId) return;
+    let docs =
+      docsCacheRef.current?.runId === runId ? docsCacheRef.current.docs : null;
+    if (!docs) {
+      try {
+        docs = await getAuditDocuments(runId);
+        docsCacheRef.current = { runId, docs };
+      } catch {
+        docs = [];
+      }
+    }
+    setEvidence({ citation, documents: docs });
+  }
 
   useEffect(() => {
     if (!running) return;
@@ -79,9 +99,13 @@ export default function App() {
     if (running) return;
     setEvents([]);
     setElapsed(0);
+    setEvidence(null);
+    docsCacheRef.current = null;
+    stickToBottomRef.current = true;
     setRunning(true);
     try {
       const runId = await start();
+      runIdRef.current = runId;
       stopRef.current = streamAudit(
         runId,
         (event) => setEvents((previous) => [...previous, event]),
@@ -181,7 +205,9 @@ export default function App() {
                 the agent plan, retrieve, compute, challenge itself, and write the memo.
               </div>
             ) : (
-              events.map((event) => <TraceEventRow key={event.seq} event={event} />)
+              events.map((event) => (
+                <TraceEventRow key={event.seq} event={event} onCitation={openCitation} />
+              ))
             )}
           </div>
         </section>
@@ -202,6 +228,8 @@ export default function App() {
           )}
         </section>
       </div>
+
+      {evidence && <EvidencePanel target={evidence} onClose={() => setEvidence(null)} />}
     </div>
   );
 }

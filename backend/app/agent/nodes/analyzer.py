@@ -261,7 +261,10 @@ async def run_analyzer(state: AuditState, ctx) -> None:
                 "threshold": rule.threshold,
                 "operator": rule.operator,
                 "unit": rule.unit,
-                "citations": [f"{s.section}" for s in finding.sources[:4]],
+                "citations": [
+                    {"doc_id": s.doc_id, "section": s.section, "page": s.page, "quote": s.quote}
+                    for s in finding.sources[:4]
+                ],
             },
         )
 

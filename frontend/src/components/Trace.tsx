@@ -1,5 +1,43 @@
-import type { AgentEvent, NodeName } from "../lib/types";
+import type { AgentEvent, Citation, NodeName } from "../lib/types";
 import { Sparkline } from "./Sparkline";
+
+function CitationChips({
+  citations,
+  onCitation,
+}: {
+  citations: unknown[] | undefined;
+  onCitation?: (citation: Citation) => void;
+}) {
+  if (!citations || citations.length === 0) return null;
+  return (
+    <div className="mt-1.5 flex flex-wrap gap-1">
+      {citations.map((entry, index) => {
+        if (typeof entry === "string") {
+          return (
+            <span
+              key={index}
+              className="rounded border border-slate-700 bg-slate-800/80 px-1.5 py-0.5 text-[11px] text-sky-300"
+            >
+              § {entry}
+            </span>
+          );
+        }
+        const citation = entry as Citation;
+        const label = citation.section + (citation.page ? `, p.${citation.page}` : "");
+        return (
+          <button
+            key={index}
+            onClick={() => onCitation?.(citation)}
+            title="View the source passage"
+            className="cursor-pointer rounded border border-slate-700 bg-slate-800/80 px-1.5 py-0.5 text-[11px] text-sky-300 underline-offset-2 transition hover:border-sky-400/70 hover:bg-sky-500/10 hover:underline"
+          >
+            § {label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
 const NODE_BADGE: Record<NodeName, string> = {
   system: "bg-slate-700/80 text-slate-200",
@@ -47,7 +85,13 @@ function Row({ event, children }: { event: AgentEvent; children: React.ReactNode
   );
 }
 
-export function TraceEventRow({ event }: { event: AgentEvent }) {
+export function TraceEventRow({
+  event,
+  onCitation,
+}: {
+  event: AgentEvent;
+  onCitation?: (citation: Citation) => void;
+}) {
   const p = event.payload as Record<string, any>;
   switch (event.type) {
     case "run_started":
@@ -171,15 +215,7 @@ export function TraceEventRow({ event }: { event: AgentEvent }) {
                 {p.projection && (
                   <div className="mt-1 text-xs text-amber-300/90">📈 {p.projection}</div>
                 )}
-                {p.citations?.length > 0 && (
-                  <div className="mt-1.5 flex flex-wrap gap-1">
-                    {(p.citations as string[]).map((citation, index) => (
-                      <span key={index} className="rounded border border-slate-700 bg-slate-800/80 px-1.5 py-0.5 text-[11px] text-sky-300">
-                        § {citation}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                <CitationChips citations={p.citations} onCitation={onCitation} />
               </div>
               {Array.isArray(p.trend) && p.trend.length >= 2 && typeof p.threshold === "number" && (
                 <Sparkline
@@ -252,6 +288,7 @@ export function TraceEventRow({ event }: { event: AgentEvent }) {
               </span>
             </div>
             {p.rationale && <div className="mt-1 text-xs text-slate-400">{p.rationale}</div>}
+            <CitationChips citations={p.citations} onCitation={onCitation} />
           </div>
         </Row>
       );

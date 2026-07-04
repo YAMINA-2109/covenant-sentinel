@@ -29,5 +29,26 @@ export interface AgentEvent {
   ts: number;
   node: NodeName;
   type: EventType;
-  payload: Record<string, unknown>;
+  payload: Record<string, any>;
+}
+
+export interface Citation {
+  doc_id: string;
+  section: string;
+  page: number | null;
+  quote: string;
+}
+
+export interface DocSection {
+  section_id: string;
+  title: string;
+  page: number | null;
+  text: string;
+}
+
+export interface ParsedDoc {
+  doc_id: string;
+  filename: string;
+  kind: string;
+  sections: DocSection[];
 }
