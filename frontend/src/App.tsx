@@ -81,6 +81,21 @@ export default function App() {
     return () => clearInterval(timer);
   }, [running]);
 
+  // ?run=<id> instantly replays a finished audit (design QA, emergency demo)
+  const replayStartedRef = useRef(false);
+  useEffect(() => {
+    const replayId = new URLSearchParams(window.location.search).get("run");
+    if (!replayId || replayStartedRef.current) return;
+    replayStartedRef.current = true;
+    runIdRef.current = replayId;
+    setRunning(true);
+    stopRef.current = streamAudit(
+      replayId,
+      (event) => setEvents((previous) => [...previous, event]),
+      () => setRunning(false),
+    );
+  }, []);
+
   useEffect(() => {
     const container = traceRef.current;
     if (container && stickToBottomRef.current) {
@@ -197,7 +212,7 @@ export default function App() {
           <div
             ref={traceRef}
             onScroll={handleTraceScroll}
-            className="max-h-[75vh] overflow-y-auto rounded-xl border border-slate-800 bg-slate-950/60 py-2"
+            className="slim-scroll max-h-[80vh] overflow-y-auto rounded-xl border border-slate-800 bg-slate-950/60 py-2"
           >
             {events.length === 0 ? (
               <div className="px-4 py-10 text-center text-sm text-slate-500">
@@ -212,7 +227,7 @@ export default function App() {
           </div>
         </section>
 
-        <section className="min-w-0">
+        <section className="slim-scroll min-w-0 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2.5rem)] lg:self-start lg:overflow-y-auto lg:pr-1">
           {memoPayload ? (
             <MemoPanel
               memoMarkdown={memoPayload.markdown}

@@ -4,7 +4,7 @@
 
 > 🏗️ Built from scratch during the **RAISE Summit Hackathon 2026** (July 4–5, Paris) — **Vultr Enterprise Agent track** · Remote · Every commit in this repository was made during the event.
 
-![Live audit — the agent planning, retrieving, computing and deciding in real time](docs/ui-live-audit.jpg)
+![The full audit view — live reasoning trace, verified verdicts, grounded Q&A, and the cited escalation memo, all in one screen](docs/ui-overview.png)
 
 ## The problem
 
@@ -33,7 +33,9 @@ flowchart LR
 7. **Critic pass** — a second, adversarial reviewer re-checks every finding: citation validity (**verified mechanically in code**, not by a model), data freshness, definition basis, internal consistency — and kills false positives
 8. **Synthesizes** — an escalation memo a credit officer could actually send: verdicts table, root cause with the unexplained portion called out, eliminated false positives, early warnings, clause-cited recommended actions
 
-![The signature moment — the Critic eliminates a false positive by citing the governing clause](docs/ui-critic-moment.jpg)
+![Live audit — deterministic tool calls, a breach card with its drift sparkline, and the agent deciding it needs more evidence](docs/ui-live-audit.jpg)
+
+![The signature moment — the Critic's checks and the false positive eliminated by citing the governing clause](docs/ui-critic-moment.jpg)
 
 ## The two demo cases
 

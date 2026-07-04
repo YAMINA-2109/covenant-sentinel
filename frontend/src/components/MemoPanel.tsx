@@ -30,7 +30,7 @@ function AskAuditor({ runId }: { runId: string }) {
       <p className="mt-1 text-xs text-slate-500">
         Answers come only from this audit's record — verdicts, facts, causes and clauses.
       </p>
-      <div className="mt-3 space-y-3">
+      <div className="slim-scroll mt-3 max-h-[22vh] space-y-3 overflow-y-auto pr-1">
         {thread.map((entry, index) => (
           <div key={index} className="text-[13px]">
             <div className="font-medium text-sky-300">Q: {entry.q}</div>
@@ -119,14 +119,18 @@ export function MemoPanel({
         </div>
       </div>
 
+      {runId && <AskAuditor runId={runId} />}
+
       <div className="rounded-xl border border-emerald-500/30 bg-slate-900/60 p-5">
         <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-emerald-300">
           Escalation memo
         </h3>
-        <div
-          className="memo-prose"
-          dangerouslySetInnerHTML={{ __html: renderMarkdown(memoMarkdown) }}
-        />
+        <div className="slim-scroll max-h-[40vh] overflow-y-auto rounded-lg border border-slate-800/60 bg-slate-950/40 p-3 pr-2">
+          <div
+            className="memo-prose"
+            dangerouslySetInnerHTML={{ __html: renderMarkdown(memoMarkdown) }}
+          />
+        </div>
         <button
           onClick={() => navigator.clipboard.writeText(memoMarkdown)}
           className="mt-4 rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:bg-slate-700"
@@ -134,8 +138,6 @@ export function MemoPanel({
           Copy memo (markdown)
         </button>
       </div>
-
-      {runId && <AskAuditor runId={runId} />}
     </div>
   );
 }

@@ -10,6 +10,25 @@ body {
   font-family: ui-sans-serif, system-ui, "Segoe UI", sans-serif;
 }
 
+/* Slim, recessive scrollbars for internal panels */
+.slim-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #2c3a52 transparent;
+}
+.slim-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+.slim-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.slim-scroll::-webkit-scrollbar-thumb {
+  background: #2c3a52;
+  border-radius: 8px;
+}
+.slim-scroll::-webkit-scrollbar-thumb:hover {
+  background: #3b4d6b;
+}
+
 /* One-shot celebration glow when the Critic eliminates a false positive */
 @keyframes glow-pulse {
   0% {
