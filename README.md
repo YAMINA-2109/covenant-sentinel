@@ -102,6 +102,11 @@ frontend/src/         React live-trace UI: phase stepper, tool calls, drift spar
 fixtures/             both demo cases (+ PDF versions) and the verified golden trace
 ```
 
+## Honest limitations
+
+- Covenant *types* covered today: ratio and absolute-floor financial covenants with quarterly testing; springing covenants, baskets and cure mechanics beyond Section 10.2 are recognised in text but not modelled.
+- Trend projection is a deliberate 3-point linear estimate — flagged as such and discounted in the confidence score.
+
 ## 🔭 Vision — from a covenant auditor to an always-on credit sentinel
 
 Today CovenantSentinel audits one borrower on demand. The same architecture — *plan → ground in documents → compute → self-verify → cite* — scales into a category:
@@ -112,11 +117,6 @@ Today CovenantSentinel audits one borrower on demand. The same architecture — 
 - **Adjacent verticals** — the trust engine is domain-general: regulatory change-impact, contract-risk review, KYC/onboarding. CovenantSentinel is the first vertical of a broader category: **self-verifying, citation-first compliance agents for regulated enterprises.**
 
 This is the *future of work* the enterprise-agent track asks for: not replacing the analyst, but giving every credit team an expert-grade, always-on, self-checking co-auditor.
-
-## Honest limitations
-
-- Covenant *types* covered today: ratio and absolute-floor financial covenants with quarterly testing; springing covenants, baskets and cure mechanics beyond Section 10.2 are recognised in text but not modelled.
-- Trend projection is a deliberate 3-point linear estimate — flagged as such and discounted in the confidence score.
 
 ## License
 
