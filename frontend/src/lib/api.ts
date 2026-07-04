@@ -9,6 +9,13 @@ export async function startAudit(files: File[]): Promise<string> {
   return json.run_id;
 }
 
+export async function startDemoAudit(): Promise<string> {
+  const response = await fetch("/api/audits/demo", { method: "POST" });
+  if (!response.ok) throw new Error(`demo start failed: ${response.status}`);
+  const json = (await response.json()) as { run_id: string };
+  return json.run_id;
+}
+
 export function streamAudit(
   runId: string,
   onEvent: (event: AgentEvent) => void,

@@ -2,12 +2,13 @@
 
 Two interchangeable retrievers behind one interface:
 
-- ``EmbeddingRetriever`` — VultronRetriever embeddings served by Vultr
-  Serverless Inference (the track's retrieval technology), cosine similarity
-  over an in-memory numpy index. Documents here are small; no vector DB
-  needed.
+- ``VultronReranker`` — two-stage hybrid retrieval: BM25 candidate recall
+  over all sections, then semantic reranking by a VultronRetriever model on
+  Vultr Serverless Inference (`POST /v1/rerank`) — the track's retrieval
+  technology used in its intended role.
 - ``BM25Retriever`` — zero-dependency lexical fallback, so a network hiccup
-  or an unavailable embedding model never kills a demo run.
+  or an unavailable reranker never kills a demo run. A failed rerank call
+  degrades to BM25 order for that query instead of failing the run.
 
 Retrieval is multi-turn by design: agent nodes issue new, more specific
 queries whenever analysis exposes a gap.
@@ -15,6 +16,7 @@ queries whenever analysis exposes a gap.
 
 import re
 
+import httpx
 from pydantic import BaseModel
 
 from app.agent.state import DocSection, ParsedDoc
@@ -91,82 +93,66 @@ class BM25Retriever:
         return hits
 
 
-class EmbeddingRetriever:
-    """VultronRetriever embeddings via the Vultr OpenAI-compatible endpoint."""
+class VultronReranker:
+    """BM25 candidate recall + VultronRetriever semantic rerank on Vultr."""
+
+    RECALL_POOL = 10
 
     def __init__(self, store: DocumentStore, model: str) -> None:
-        from openai import AsyncOpenAI
-
         from app.core.config import get_settings
 
         settings = get_settings()
-        self.name = f"vultron-embeddings:{model}"
-        self._store = store
+        self.name = f"hybrid: bm25 recall -> rerank {model}"
+        self._bm25 = BM25Retriever(store)
         self._model = model
-        self._client = AsyncOpenAI(
-            api_key=settings.vultr_api_key, base_url=settings.vultr_base_url
-        )
-        self._matrix = None  # built lazily on first search
+        self._url = settings.vultr_base_url.rstrip("/") + "/rerank"
+        self._headers = {"Authorization": f"Bearer {settings.vultr_api_key}"}
 
-    async def _embed(self, texts: list[str]):
-        import numpy as np
+    async def rerank_probe(self) -> None:
+        await self._rerank("connectivity probe", ["a", "b"], top_n=1)
 
-        response = await self._client.embeddings.create(model=self._model, input=texts)
-        vectors = np.array([item.embedding for item in response.data], dtype="float32")
-        norms = np.linalg.norm(vectors, axis=1, keepdims=True)
-        return vectors / np.clip(norms, 1e-9, None)
-
-    async def _ensure_index(self) -> None:
-        if self._matrix is None and self._store.entries:
-            texts = [
-                f"{section.title}\n{section.text}" for _, section in self._store.entries
-            ]
-            self._matrix = await self._embed(texts)
+    async def _rerank(self, query: str, documents: list[str], top_n: int) -> list[dict]:
+        async with httpx.AsyncClient(timeout=60) as client:
+            response = await client.post(
+                self._url,
+                headers=self._headers,
+                json={"model": self._model, "query": query, "documents": documents, "top_n": top_n},
+            )
+            response.raise_for_status()
+            return response.json().get("results", [])
 
     async def search(
         self, query: str, k: int = 4, doc_kind: str | None = None
     ) -> list[RetrievalHit]:
-        await self._ensure_index()
-        if self._matrix is None:
-            return []
-        query_vec = (await self._embed([query]))[0]
-        scores = self._matrix @ query_vec
-        ranked = sorted(
-            zip(self._store.entries, scores.tolist()),
-            key=lambda pair: pair[1],
-            reverse=True,
-        )
+        candidates = await self._bm25.search(query, k=max(self.RECALL_POOL, k * 3), doc_kind=doc_kind)
+        if len(candidates) <= k:
+            return candidates
+        documents = [f"{hit.title}\n{hit.text}"[:2000] for hit in candidates]
+        try:
+            results = await self._rerank(query, documents, top_n=k)
+        except Exception:
+            return candidates[:k]  # degrade to BM25 order, never fail the run
         hits: list[RetrievalHit] = []
-        for (doc, section), score in ranked:
-            if doc_kind and doc.kind != doc_kind:
+        for item in results[:k]:
+            index = item.get("index")
+            if not isinstance(index, int) or not (0 <= index < len(candidates)):
                 continue
-            hits.append(
-                RetrievalHit(
-                    doc_id=doc.doc_id,
-                    filename=doc.filename,
-                    doc_kind=doc.kind,
-                    section_id=section.section_id,
-                    title=section.title,
-                    page=section.page,
-                    text=section.text,
-                    score=round(float(score), 4),
-                )
-            )
-            if len(hits) >= k:
-                break
-        return hits
+            hit = candidates[index].model_copy()
+            hit.score = round(float(item.get("relevance_score", 0.0)), 4)
+            hits.append(hit)
+        return hits or candidates[:k]
 
 
 async def build_retriever(store: DocumentStore):
-    """Prefer VultronRetriever embeddings when configured and reachable;
+    """Prefer the VultronRetriever reranker when configured and reachable;
     otherwise fall back to BM25 so the pipeline always runs."""
     from app.core.config import get_settings
 
     settings = get_settings()
-    if settings.vultr_embed_model:
-        retriever = EmbeddingRetriever(store, settings.vultr_embed_model)
+    if settings.vultr_retriever_model:
+        retriever = VultronReranker(store, settings.vultr_retriever_model)
         try:
-            await retriever._embed(["connectivity probe"])
+            await retriever.rerank_probe()
             return retriever
         except Exception:
             pass

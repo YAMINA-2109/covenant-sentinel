@@ -29,10 +29,10 @@ Banks and private-credit funds monitor loan covenants by hand: open a 40-page cr
 
 ## Stack
 
-- **LLM**: Vultr Serverless Inference (`Qwen3.5-397B-A17B`)
-- **Retrieval**: VultronRetriever embeddings on Vultr Serverless Inference (BM25 fallback so a network hiccup never kills a run)
+- **LLM**: Vultr Serverless Inference (`Qwen/Qwen3.5-397B-A17B`), streaming with retry — no dependency on native function-calling (JSON-schema prompting + Pydantic validation)
+- **Retrieval**: hybrid two-stage — BM25 candidate recall, then semantic reranking by `vultr/VultronRetrieverPrime-Qwen3.5-8B` via Vultr's `/v1/rerank` (pure-BM25 fallback so a network hiccup never kills a run)
 - **Orchestration**: LangGraph over a typed Pydantic state
-- **Backend**: FastAPI + SSE (live reasoning trace)
+- **Backend**: FastAPI + SSE (live reasoning trace, replayable — every run persisted to `traces/`)
 - **Frontend**: React + Vite + TypeScript + Tailwind
 
 ## Run it
