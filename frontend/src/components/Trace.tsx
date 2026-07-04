@@ -1,4 +1,5 @@
 import type { AgentEvent, NodeName } from "../lib/types";
+import { Sparkline } from "./Sparkline";
 
 const NODE_BADGE: Record<NodeName, string> = {
   system: "bg-slate-700/80 text-slate-200",
@@ -158,23 +159,37 @@ export function TraceEventRow({ event }: { event: AgentEvent }) {
       return (
         <Row event={event}>
           <div className="rounded-lg border border-slate-700 bg-slate-900/80 px-3 py-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <StatusPill status={p.status} />
-              <span className="font-semibold text-slate-100">{p.covenant}</span>
-              <span className="font-mono text-xs text-slate-300">
-                required {p.required} · actual <b>{p.actual}</b> · headroom {p.headroom}
-              </span>
-            </div>
-            {p.projection && <div className="mt-1 text-xs text-amber-300/90">📈 {p.projection}</div>}
-            {p.citations?.length > 0 && (
-              <div className="mt-1.5 flex flex-wrap gap-1">
-                {(p.citations as string[]).map((citation, index) => (
-                  <span key={index} className="rounded border border-slate-700 bg-slate-800/80 px-1.5 py-0.5 text-[11px] text-sky-300">
-                    § {citation}
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <StatusPill status={p.status} />
+                  <span className="font-semibold text-slate-100">{p.covenant}</span>
+                  <span className="font-mono text-xs text-slate-300">
+                    required {p.required} · actual <b>{p.actual}</b> · headroom {p.headroom}
                   </span>
-                ))}
+                </div>
+                {p.projection && (
+                  <div className="mt-1 text-xs text-amber-300/90">📈 {p.projection}</div>
+                )}
+                {p.citations?.length > 0 && (
+                  <div className="mt-1.5 flex flex-wrap gap-1">
+                    {(p.citations as string[]).map((citation, index) => (
+                      <span key={index} className="rounded border border-slate-700 bg-slate-800/80 px-1.5 py-0.5 text-[11px] text-sky-300">
+                        § {citation}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
+              {Array.isArray(p.trend) && p.trend.length >= 2 && typeof p.threshold === "number" && (
+                <Sparkline
+                  points={p.trend}
+                  threshold={p.threshold}
+                  status={p.status}
+                  unit={p.unit}
+                />
+              )}
+            </div>
           </div>
         </Row>
       );
@@ -206,7 +221,9 @@ export function TraceEventRow({ event }: { event: AgentEvent }) {
         <Row event={event}>
           <div
             className={`rounded-lg border px-3 py-2 ${
-              cleared ? "border-emerald-500/50 bg-emerald-500/10" : "border-slate-700 bg-slate-900/80"
+              cleared
+                ? "glow-once border-emerald-500/50 bg-emerald-500/10"
+                : "border-slate-700 bg-slate-900/80"
             }`}
           >
             <div className="flex flex-wrap items-center gap-2">

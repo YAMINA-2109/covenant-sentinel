@@ -8,10 +8,10 @@ interface VerdictSummary {
 }
 
 const STATUS_COLOR: Record<string, string> = {
-  breach: "text-rose-300 border-rose-500/40",
-  at_risk: "text-amber-300 border-amber-500/40",
-  ok: "text-emerald-300 border-emerald-500/40",
-  data_missing: "text-slate-300 border-slate-500/40",
+  breach: "text-rose-300 border-rose-500/40 border-l-4 border-l-rose-500 bg-rose-500/5",
+  at_risk: "text-amber-300 border-amber-500/40 border-l-4 border-l-amber-500 bg-amber-500/5",
+  ok: "text-emerald-300 border-emerald-500/40 border-l-4 border-l-emerald-500 bg-emerald-500/5",
+  data_missing: "text-slate-300 border-slate-500/40 border-l-4 border-l-slate-500 bg-slate-500/5",
 };
 
 export function MemoPanel({
@@ -39,7 +39,7 @@ export function MemoPanel({
           {verdicts.map((verdict) => (
             <div
               key={verdict.covenant}
-              className={`flex items-center justify-between rounded-lg border bg-slate-950/60 px-3 py-2 ${STATUS_COLOR[verdict.final_status] ?? STATUS_COLOR.data_missing}`}
+              className={`flex items-center justify-between rounded-lg border px-3 py-2 ${STATUS_COLOR[verdict.final_status] ?? STATUS_COLOR.data_missing}`}
             >
               <div>
                 <div className="text-sm font-semibold text-slate-100">{verdict.covenant}</div>

@@ -257,6 +257,10 @@ async def run_analyzer(state: AuditState, ctx) -> None:
                 "headroom": finding.headroom,
                 "computed_by": finding.computed_by,
                 "projection": finding.projection_note,
+                "trend": [{"period": p.period, "value": p.value} for p in trend_points],
+                "threshold": rule.threshold,
+                "operator": rule.operator,
+                "unit": rule.unit,
                 "citations": [f"{s.section}" for s in finding.sources[:4]],
             },
         )

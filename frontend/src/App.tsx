@@ -1,8 +1,49 @@
 import { useEffect, useRef, useState } from "react";
 import { startAudit, startDemoAudit, streamAudit } from "./lib/api";
-import type { AgentEvent } from "./lib/types";
+import type { AgentEvent, NodeName } from "./lib/types";
 import { TraceEventRow } from "./components/Trace";
 import { MemoPanel } from "./components/MemoPanel";
+
+const PHASES: { node: NodeName; label: string }[] = [
+  { node: "planner", label: "Plan" },
+  { node: "retriever", label: "Retrieve" },
+  { node: "analyzer", label: "Analyze" },
+  { node: "critic", label: "Verify" },
+  { node: "synthesizer", label: "Report" },
+];
+
+function PhaseStepper({ events, running }: { events: AgentEvent[]; running: boolean }) {
+  const started = events.filter((event) => event.type === "node_started");
+  const seen = new Set(started.map((event) => event.node));
+  const current = running && started.length > 0 ? started[started.length - 1].node : null;
+  if (events.length === 0) return null;
+  return (
+    <div className="flex items-center gap-1.5">
+      {PHASES.map((phase, index) => {
+        const isCurrent = phase.node === current;
+        const isDone = seen.has(phase.node) && !isCurrent;
+        return (
+          <span key={phase.node} className="flex items-center gap-1.5">
+            {index > 0 && <span className="h-px w-3 bg-slate-700" />}
+            <span
+              className={`flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
+                isCurrent
+                  ? "border-emerald-500/60 bg-emerald-500/10 text-emerald-300"
+                  : isDone
+                    ? "border-slate-700 bg-slate-800/60 text-slate-300"
+                    : "border-slate-800 text-slate-600"
+              }`}
+            >
+              {isCurrent && <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />}
+              {isDone && <span className="text-emerald-400">✓</span>}
+              {phase.label}
+            </span>
+          </span>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function App() {
   const [files, setFiles] = useState<File[]>([]);
@@ -10,7 +51,8 @@ export default function App() {
   const [running, setRunning] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const stopRef = useRef<(() => void) | null>(null);
-  const traceEndRef = useRef<HTMLDivElement | null>(null);
+  const traceRef = useRef<HTMLDivElement | null>(null);
+  const stickToBottomRef = useRef(true);
 
   useEffect(() => {
     if (!running) return;
@@ -20,8 +62,18 @@ export default function App() {
   }, [running]);
 
   useEffect(() => {
-    traceEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    const container = traceRef.current;
+    if (container && stickToBottomRef.current) {
+      container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+    }
   }, [events.length]);
+
+  function handleTraceScroll() {
+    const container = traceRef.current;
+    if (!container) return;
+    stickToBottomRef.current =
+      container.scrollHeight - container.scrollTop - container.clientHeight < 140;
+  }
 
   async function launch(start: () => Promise<string>) {
     if (running) return;
@@ -69,9 +121,13 @@ export default function App() {
             and writes a cited escalation memo.
           </p>
         </div>
-        <div className="text-right text-xs text-slate-500">
-          <div>Vultr Serverless Inference · Qwen3.5-397B</div>
-          <div>VultronRetrieverPrime hybrid retrieval · LangGraph</div>
+        <div className="flex flex-col items-end gap-1.5">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-500/40 bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-300">
+            ⚡ Powered by Vultr Serverless Inference
+          </span>
+          <div className="text-right text-[11px] text-slate-500">
+            Qwen3.5-397B · VultronRetrieverPrime hybrid retrieval · LangGraph
+          </div>
         </div>
       </header>
 
@@ -102,13 +158,23 @@ export default function App() {
 
       <div className="grid gap-6 lg:grid-cols-[1fr_26rem]">
         <section className="min-w-0">
-          <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-400">
-            Agent reasoning — live
-            {running && (
-              <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-            )}
-          </h2>
-          <div className="max-h-[75vh] overflow-y-auto rounded-xl border border-slate-800 bg-slate-950/60 py-2">
+          <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+            <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-slate-400">
+              Agent reasoning — live
+              {running && (
+                <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-300">
+                  <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                  LIVE · {elapsed}s
+                </span>
+              )}
+            </h2>
+            <PhaseStepper events={events} running={running} />
+          </div>
+          <div
+            ref={traceRef}
+            onScroll={handleTraceScroll}
+            className="max-h-[75vh] overflow-y-auto rounded-xl border border-slate-800 bg-slate-950/60 py-2"
+          >
             {events.length === 0 ? (
               <div className="px-4 py-10 text-center text-sm text-slate-500">
                 Run the ACME demo case (credit agreement + Q2 report + treasury pack) and watch
@@ -117,7 +183,6 @@ export default function App() {
             ) : (
               events.map((event) => <TraceEventRow key={event.seq} event={event} />)
             )}
-            <div ref={traceEndRef} />
           </div>
         </section>
 
