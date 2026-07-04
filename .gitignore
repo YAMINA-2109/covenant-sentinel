@@ -8,7 +8,8 @@ venv/
 
 # Node
 node_modules/
-dist/
+# frontend/dist is committed intentionally: the Vultr VM deploy is then
+# git-clone + Python only (no Node toolchain on the server)
 
 # Env & secrets — never commit keys
 .env
