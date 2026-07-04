@@ -34,6 +34,11 @@ PDF_FILES = [
     "pdf/acme_q2_2026_financial_report.pdf",
     "pdf/acme_treasury_pack_q2_2026.pdf",
 ]
+GLOBEX_FILES = [
+    "globex_facilities_agreement.txt",
+    "globex_q2_2026_financial_report.txt",
+    "globex_treasury_pack_q2_2026.txt",
+]
 
 
 def _verdict(state: AuditState, needle: str):
@@ -117,10 +122,40 @@ async def _fresh_run(files: list[str]) -> AuditState:
     return state
 
 
+def check_globex(state: AuditState) -> int:
+    failures = 0
+
+    def expect(name: str, ok: bool, detail: str = "") -> None:
+        nonlocal failures
+        print(f"  [{'PASS' if ok else 'FAIL'}] {name}" + (f" — {detail}" if detail else ""))
+        if not ok:
+            failures += 1
+
+    expect("three verdicts produced", len(state.verdicts) == 3, f"got {len(state.verdicts)}")
+    expect(
+        "all covenants compliant (no false alarms)",
+        all(v.final_status == "ok" for v in state.verdicts),
+        f"{[(v.rule_id, v.final_status) for v in state.verdicts]}",
+    )
+    expect(
+        "no data_missing verdicts",
+        all(v.final_status != "data_missing" for v in state.verdicts),
+    )
+    expect(
+        "high confidence on a clean book",
+        state.overall_confidence is not None and state.overall_confidence >= 0.9,
+        f"got {state.overall_confidence}",
+    )
+    expect("memo names Globex", "GLOBEX" in (state.memo_markdown or "").upper())
+    return failures
+
+
 def main() -> None:
+    globex = "--globex" in sys.argv
     if "--run" in sys.argv:
-        files = PDF_FILES if "--pdf" in sys.argv else TXT_FILES
-        print(f"running fresh audit on {'PDF' if '--pdf' in sys.argv else 'txt'} fixtures…")
+        files = GLOBEX_FILES if globex else (PDF_FILES if "--pdf" in sys.argv else TXT_FILES)
+        label = "Globex" if globex else ("PDF" if "--pdf" in sys.argv else "txt")
+        print(f"running fresh audit on {label} fixtures…")
         started = time.time()
         state = asyncio.run(_fresh_run(files))
         print(f"audit finished in {time.time() - started:.0f}s — verifying:")
@@ -131,7 +166,7 @@ def main() -> None:
         print(f"verifying newest trace: {traces[-1].name}")
         state = AuditState.model_validate(json.loads(traces[-1].read_text(encoding="utf-8"))["state"])
 
-    failures = check_state(state)
+    failures = check_globex(state) if globex else check_state(state)
     print(f"\n{'✅ ALL EXPECTATIONS HOLD' if failures == 0 else f'❌ {failures} expectation(s) FAILED'}")
     sys.exit(0 if failures == 0 else 1)
 

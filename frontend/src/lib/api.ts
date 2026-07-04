@@ -23,6 +23,17 @@ export async function startDemoAudit(): Promise<string> {
   return json.run_id;
 }
 
+export async function askAuditor(runId: string, question: string): Promise<string> {
+  const response = await fetch(`/api/audits/${runId}/ask`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question }),
+  });
+  if (!response.ok) throw new Error(`ask failed: ${response.status}`);
+  const json = (await response.json()) as { answer: string };
+  return json.answer;
+}
+
 export function streamAudit(
   runId: string,
   onEvent: (event: AgentEvent) => void,

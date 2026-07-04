@@ -118,3 +118,47 @@ async def get_audit(run_id: str) -> AuditState:
     if context is None:
         raise HTTPException(status_code=404, detail="unknown run")
     return context.state
+
+
+@router.post("/audits/{run_id}/ask")
+async def ask_auditor(run_id: str, body: dict) -> dict:
+    """Grounded Q&A over a finished audit: answers come only from the audit
+    record (verdicts, facts, causes, clauses, memo), with section citations."""
+    context = _RUNS.get(run_id)
+    if context is None:
+        raise HTTPException(status_code=404, detail="unknown run")
+    state = context.state
+    if not state.memo_markdown:
+        raise HTTPException(status_code=409, detail="audit not finished yet")
+    question = str(body.get("question", "")).strip()
+    if not question:
+        raise HTTPException(status_code=400, detail="question is required")
+
+    import json as _json
+
+    from app.agent.llm import VultrLLM
+    from app.agent.prompts import ASK_SYSTEM
+
+    record = {
+        "verdicts": [v.model_dump() for v in state.verdicts],
+        "findings": [f.model_dump(exclude={"sources"}) for f in state.findings],
+        "facts": [
+            f"{fact.metric}={fact.value} ({fact.unit}, {fact.period or '?'}, {fact.basis}) "
+            f"[{fact.sources[0].section if fact.sources else '?'}]"
+            for fact in state.facts
+        ],
+        "causes": [c.model_dump(exclude={"sources"}) for c in state.causes],
+        "cause_coverage": state.cause_coverage,
+        "clause_excerpts": [
+            {"section": s.section, "text": s.text[:600]}
+            for s in state.snippets
+            if s.tag.startswith("clause:")
+        ],
+        "overall_confidence": state.overall_confidence,
+    }
+    answer = await VultrLLM().chat(
+        ASK_SYSTEM,
+        f"AUDIT RECORD:\n{_json.dumps(record, default=str)}\n\n"
+        f"MEMO:\n{state.memo_markdown}\n\nQUESTION: {question}",
+    )
+    return {"answer": answer.strip()}

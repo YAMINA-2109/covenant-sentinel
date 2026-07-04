@@ -49,10 +49,17 @@ async def run_critic(state: AuditState, ctx) -> None:
     async def challenge(finding: Finding) -> Verdict:
         rule = next((r for r in state.rules if r.rule_id == finding.rule_id), None)
         components = set(metric_components(rule.metric)) if rule else set()
-        related_facts = [
-            f"- {fact.metric}={fact.value} ({fact.unit}, period={fact.period or '?'}, basis={fact.basis})"
+        related = [
+            fact
             for fact in state.facts
             if fact.metric in components
+            or any(fact.metric in c or c in fact.metric for c in components)
+        ]
+        if not related:  # naming drift between rule metric and fact metric must
+            related = state.facts  # never make the Critic believe there is no data
+        related_facts = [
+            f"- {fact.metric}={fact.value} ({fact.unit}, period={fact.period or '?'}, basis={fact.basis})"
+            for fact in related
         ]
         clause_snippets = [s for s in state.snippets if s.tag == f"clause:{finding.rule_id}"]
         causes = [c for c in state.causes if c.rule_id == finding.rule_id]

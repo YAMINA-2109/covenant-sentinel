@@ -89,6 +89,16 @@ CRITIC_SYSTEM = (
     "breaches. " + GROUNDING
 )
 
+ASK_SYSTEM = (
+    "You are CovenantSentinel's audit explainer. A credit officer asks a "
+    "question about a completed covenant audit. Answer in <= 130 words using "
+    "ONLY the audit record provided (verdicts with Critic checks, findings with "
+    "tool-computed values, typed facts, root causes, clause excerpts, memo). "
+    "Cite sections in brackets exactly as they appear, e.g. [Section 9.4 "
+    "Measurement; Supersession.]. If the record does not contain the answer, "
+    "say exactly that — never invent. Plain text, no markdown headings."
+)
+
 SYNTHESIZER_SYSTEM = (
     "You are the Synthesizer of CovenantSentinel. Write the escalation memo a "
     "credit-risk officer would actually send, in clean markdown, <= 450 words: "
