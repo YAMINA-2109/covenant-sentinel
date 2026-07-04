@@ -68,6 +68,16 @@ async def _run_bm25_checks():
     assert "4.2" in joined and "5.3" in joined, "both conflicting cash figures must surface"
 
 
+def test_doc_kind_inferred_from_content_when_filename_is_generic():
+    agreement_raw = (FIXTURES / "acme_credit_agreement.txt").read_bytes()
+    report_raw = (FIXTURES / "acme_q2_2026_financial_report.txt").read_bytes()
+    treasury_raw = (FIXTURES / "acme_treasury_pack_q2_2026.txt").read_bytes()
+
+    assert parse_upload("d0", "document_one.txt", agreement_raw).kind == "credit_agreement"
+    assert parse_upload("d1", "document_two.txt", report_raw).kind == "financial_report"
+    assert parse_upload("d2", "document_three.txt", treasury_raw).kind == "treasury_pack"
+
+
 def test_agent_graph_imports_cleanly():
     from app.agent.graph import run_audit  # noqa: F401
     from app.main import app  # noqa: F401

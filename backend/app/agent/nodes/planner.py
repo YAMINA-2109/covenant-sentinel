@@ -27,12 +27,20 @@ async def run_planner(state: AuditState, ctx) -> None:
     bus = ctx.bus
     bus.publish(Node.PLANNER, EventType.NODE_STARTED, {"task": "identify covenants to test"})
 
+    # If no upload was recognisably the agreement, search every document.
+    agreement_kind = (
+        "credit_agreement"
+        if any(doc.kind == "credit_agreement" for doc in state.documents)
+        else None
+    )
     hits, seen = [], set()
     for query in PLANNER_QUERIES:
         bus.publish(
-            Node.PLANNER, EventType.RETRIEVAL_QUERY, {"query": query, "target": "credit_agreement"}
+            Node.PLANNER,
+            EventType.RETRIEVAL_QUERY,
+            {"query": query, "target": agreement_kind or "all documents"},
         )
-        for hit in await ctx.retriever.search(query, k=4, doc_kind="credit_agreement"):
+        for hit in await ctx.retriever.search(query, k=4, doc_kind=agreement_kind):
             if hit.section_id in seen:
                 continue
             seen.add(hit.section_id)

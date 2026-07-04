@@ -76,6 +76,11 @@ async def run_analyzer(state: AuditState, ctx) -> None:
     state.findings = []  # recomputed idempotently on every pass
     followups: list[RetrievalRequest] = []
     queued = {(request.reason, request.query) for request in state.pending_retrievals}
+    agreement_kind = (
+        "credit_agreement"
+        if any(doc.kind == "credit_agreement" for doc in state.documents)
+        else None
+    )
 
     def queue(reason: str, query: str, doc_kind: str | None = None) -> None:
         if (reason, query) not in queued:
@@ -171,7 +176,7 @@ async def run_analyzer(state: AuditState, ctx) -> None:
                 queue(
                     f"clause:{rule.rule_id}",
                     "measurement supersession preliminary flash estimates final quarter-end figures govern",
-                    doc_kind="credit_agreement",
+                    doc_kind=agreement_kind,
                 )
                 bus.publish(
                     Node.ANALYZER,
@@ -222,7 +227,7 @@ async def run_analyzer(state: AuditState, ctx) -> None:
                 queue(
                     f"clause:{rule.rule_id}",
                     "equity cure remedy covenant breach waiver",
-                    doc_kind="credit_agreement",
+                    doc_kind=agreement_kind,
                 )
                 bus.publish(
                     Node.ANALYZER,

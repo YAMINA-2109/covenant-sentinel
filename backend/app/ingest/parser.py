@@ -36,7 +36,37 @@ def _is_heading(line: str) -> bool:
     return bool(_ALL_CAPS.match(stripped))
 
 
-def infer_kind(filename: str) -> str:
+_KIND_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "credit_agreement": (
+        "credit agreement",
+        "facility agreement",
+        "the borrower shall",
+        "financial covenants",
+        "the lender",
+        "events of default",
+    ),
+    "financial_report": (
+        "quarterly report",
+        "financial report",
+        "balance sheet",
+        "quarter ended",
+        "revenue for the quarter",
+        "cash and cash equivalents",
+    ),
+    "treasury_pack": (
+        "treasury",
+        "debt movement",
+        "drawdown",
+        "flash note",
+        "payments log",
+        "new drawings",
+    ),
+}
+
+
+def infer_kind(filename: str, text: str = "") -> str:
+    """Filename keywords first; content keywords as fallback so arbitrarily
+    named uploads still route correctly."""
     name = filename.lower()
     if "agreement" in name or "contract" in name or "credit" in name:
         return "credit_agreement"
@@ -44,7 +74,14 @@ def infer_kind(filename: str) -> str:
         return "financial_report"
     if "treasury" in name or "transaction" in name or "pack" in name:
         return "treasury_pack"
-    return "other"
+
+    sample = " ".join(text[:6000].lower().split())
+    scores = {
+        kind: sum(1 for keyword in keywords if keyword in sample)
+        for kind, keywords in _KIND_KEYWORDS.items()
+    }
+    best_kind, best_score = max(scores.items(), key=lambda pair: pair[1])
+    return best_kind if best_score >= 2 else "other"
 
 
 def parse_text(doc_id: str, filename: str, raw: str, page: int | None = None) -> ParsedDoc:
@@ -82,7 +119,7 @@ def parse_text(doc_id: str, filename: str, raw: str, page: int | None = None) ->
     flush()
 
     return ParsedDoc(
-        doc_id=doc_id, filename=filename, kind=infer_kind(filename), sections=sections
+        doc_id=doc_id, filename=filename, kind=infer_kind(filename, raw), sections=sections
     )
 
 
@@ -90,18 +127,23 @@ def parse_pdf(doc_id: str, filename: str, data: bytes) -> ParsedDoc:
     import pdfplumber
 
     sections: list[DocSection] = []
+    full_text: list[str] = []
     with pdfplumber.open(io.BytesIO(data)) as pdf:
         for page_number, page in enumerate(pdf.pages, start=1):
             text = page.extract_text() or ""
             if not text.strip():
                 continue
+            full_text.append(text)
             page_doc = parse_text(doc_id, filename, text, page=page_number)
             for section in page_doc.sections:
                 section.section_id = f"{doc_id}#{len(sections)}"
                 sections.append(section)
 
     return ParsedDoc(
-        doc_id=doc_id, filename=filename, kind=infer_kind(filename), sections=sections
+        doc_id=doc_id,
+        filename=filename,
+        kind=infer_kind(filename, "\n".join(full_text)),
+        sections=sections,
     )
 
 
