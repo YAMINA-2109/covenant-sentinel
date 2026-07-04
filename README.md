@@ -12,12 +12,16 @@ Banks and private-credit funds monitor loan covenants by hand: open a 40-page cr
 
 ## What the agent does
 
-```
-PLANNER ──► RETRIEVER ──► ANALYZER ──► CRITIC ──► SYNTHESIZER
-                ▲             │
-                └─────────────┘
-        multi-turn loop: the agent decides it needs
-        more evidence (causes, governing clauses, missing figures)
+```mermaid
+flowchart LR
+    U[/"Upload: agreement +<br/>financials + treasury pack"/] --> P["PLANNER<br/>covenants and bases"]
+    P --> R["RETRIEVER<br/>BM25 recall →<br/>VultronRetriever rerank"]
+    R --> A["ANALYZER<br/>deterministic tools:<br/>ratios · thresholds · trends"]
+    A -- "needs more evidence:<br/>causes · clauses · figures" --> R
+    A --> C["CRITIC<br/>adversarial checks +<br/>mechanical citation proof"]
+    C --> S["SYNTHESIZER<br/>cited escalation memo"]
+    S --> M[/"Memo + verdicts +<br/>deterministic confidence"/]
+    C -.->|"SSE live trace"| UI[("Reasoning UI")]
 ```
 
 1. **Plans** — reads the agreement, identifies every financial covenant and its *measurement basis* ("LTM EBITDA, quarterly figures shall not be used")
