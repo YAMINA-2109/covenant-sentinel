@@ -8,18 +8,21 @@ Usage:  .venv\\Scripts\\python.exe scripts\\run_demo.py
 """
 
 import asyncio
+import io
 import json
 import sys
 import time
 from pathlib import Path
 
-sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # Windows cp1252 console
+if isinstance(sys.stdout, io.TextIOWrapper):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # Windows cp1252 console
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from app.agent.graph import run_audit
-from app.agent.state import AuditState
-from app.core.events import RunBus
-from app.ingest.parser import parse_upload
+from app.agent.graph import run_audit  # noqa: E402
+from app.agent.state import AuditState  # noqa: E402
+from app.core.events import RunBus  # noqa: E402
+from app.ingest.parser import parse_upload  # noqa: E402
+
 
 FIXTURES = Path(__file__).resolve().parents[2] / "fixtures"
 FILES = [
