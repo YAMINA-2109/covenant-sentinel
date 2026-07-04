@@ -235,7 +235,15 @@ async def run_analyzer(state: AuditState, ctx) -> None:
                     {"covenant": rule.name, "why": "breach detected — retrieving transaction causes and remedy clauses"},
                 )
 
-        sources = [source for fact in used_facts for source in fact.sources]
+        seen_refs: set[tuple[str, str, str]] = set()
+        sources = []
+        for fact in used_facts:
+            for source in fact.sources:
+                ref_key = (source.doc_id, source.section, source.quote[:80])
+                if ref_key in seen_refs:
+                    continue
+                seen_refs.add(ref_key)
+                sources.append(source)
         finding = Finding(
             rule_id=rule.rule_id,
             covenant=rule.name,
