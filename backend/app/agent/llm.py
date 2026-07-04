@@ -62,6 +62,10 @@ class VultrLLM:
                         {"role": "system", "content": system},
                         {"role": "user", "content": user},
                     ],
+                    # Reasoning mode multiplies latency ~50x on this endpoint
+                    # (benchmarked 3.2s vs 4+ min per call) with no quality gain
+                    # for schema-constrained extraction/selection tasks.
+                    extra_body={"chat_template_kwargs": {"enable_thinking": False}},
                 )
                 parts: list[str] = []
                 async for chunk in stream:

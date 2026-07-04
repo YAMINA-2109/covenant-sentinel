@@ -7,6 +7,7 @@ armed with the governing clauses retrieved for that rule. Its checklist
 outcomes feed the deterministic confidence score.
 """
 
+import asyncio
 import json
 
 from app.agent.prompts import CRITIC_SYSTEM
@@ -45,8 +46,7 @@ async def run_critic(state: AuditState, ctx) -> None:
     bus = ctx.bus
     bus.publish(Node.CRITIC, EventType.NODE_STARTED, {"findings_to_challenge": len(state.findings)})
 
-    state.verdicts = []
-    for finding in state.findings:
+    async def challenge(finding: Finding) -> Verdict:
         rule = next((r for r in state.rules if r.rule_id == finding.rule_id), None)
         components = set(metric_components(rule.metric)) if rule else set()
         related_facts = [
@@ -105,7 +105,11 @@ async def run_critic(state: AuditState, ctx) -> None:
                     )
                     break
 
-        confidence = score_verdict(checks, state.cause_coverage.get(finding.rule_id))
+        confidence = score_verdict(
+            checks,
+            state.cause_coverage.get(finding.rule_id),
+            projected=final_status == "at_risk",
+        )
         verdict = Verdict(
             rule_id=finding.rule_id,
             original_status=original,
@@ -116,7 +120,6 @@ async def run_critic(state: AuditState, ctx) -> None:
             rationale=output.rationale,
             sources=sources,
         )
-        state.verdicts.append(verdict)
         bus.publish(
             Node.CRITIC,
             EventType.VERDICT,
@@ -129,3 +132,7 @@ async def run_critic(state: AuditState, ctx) -> None:
                 "rationale": output.rationale[:400],
             },
         )
+        return verdict
+
+    # Findings are challenged concurrently — each is an independent review.
+    state.verdicts = list(await asyncio.gather(*(challenge(f) for f in state.findings)))

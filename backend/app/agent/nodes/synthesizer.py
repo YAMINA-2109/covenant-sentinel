@@ -17,8 +17,9 @@ METHODOLOGY_FOOTNOTE = (
     "never by the language model. Confidence per finding = 80% weighted Critic "
     "checks (citation validity 30%, data freshness 25%, definition basis 25%, "
     "internal consistency 20%) + 20% cause coverage — the share of the flagged "
-    "movement matched to clearly documented causes, as required by the covenant-"
-    "monitoring brief. Overall confidence is the weakest actionable finding.*"
+    "movement matched to clearly documented causes. At-risk verdicts based on a "
+    "trend projection carry an additional 0.9 projection factor. Overall "
+    "confidence is the weakest actionable finding.*"
 )
 
 
@@ -58,15 +59,23 @@ async def run_synthesizer(state: AuditState, ctx) -> None:
             "description": cause.description,
             "amount_eur_m": cause.amount,
             "documented": cause.matched,
+            "citations": [source.section for source in cause.sources[:2] if source.section],
         }
         for cause in state.causes
     ]
     clause_material = snippets_block([s for s in state.snippets if s.tag.startswith("clause:")])
 
+    borrower_hint = ""
+    for doc in state.documents:
+        if doc.kind == "credit_agreement" and doc.sections:
+            borrower_hint = doc.sections[0].text[:400]
+            break
+
     memo = await ctx.llm.chat(
         SYNTHESIZER_SYSTEM,
         (
             f"Documents audited: {', '.join(d.filename for d in state.documents)}\n\n"
+            f"AGREEMENT PREAMBLE (use the borrower's exact legal name from here):\n{borrower_hint}\n\n"
             f"VERDICTS (verified by the Critic):\n{json.dumps(verdict_context, indent=1)}\n\n"
             f"ROOT CAUSES:\n{json.dumps(causes_context, indent=1)}\n\n"
             f"CAUSE COVERAGE by covenant: {json.dumps(state.cause_coverage)}\n\n"
