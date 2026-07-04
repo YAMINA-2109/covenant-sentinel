@@ -30,6 +30,8 @@ FILES = [
     "acme_q2_2026_financial_report.txt",
     "acme_treasury_pack_q2_2026.txt",
 ]
+if "--pdf" in sys.argv:  # exercise the PDF ingestion path end-to-end
+    FILES = [f"pdf/{name.removesuffix('.txt')}.pdf" for name in FILES]
 
 
 async def print_events(bus: RunBus) -> None:
